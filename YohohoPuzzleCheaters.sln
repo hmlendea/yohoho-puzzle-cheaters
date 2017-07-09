@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters", "Yoh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Infrastructure", "YohohoPuzzleCheaters.Infrastructure\YohohoPuzzleCheaters.Infrastructure.csproj", "{EA067580-01DD-4CFE-AB96-D2306D7C6302}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Cheats", "YohohoPuzzleCheaters.Cheats\YohohoPuzzleCheaters.Cheats.csproj", "{ED9A0F92-EB09-4F2E-89B6-51F31B93B2D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +21,9 @@ Global
 		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Debug|x86.Build.0 = Debug|Any CPU
 		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Release|x86.ActiveCfg = Release|Any CPU
 		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Release|x86.Build.0 = Release|Any CPU
+		{ED9A0F92-EB09-4F2E-89B6-51F31B93B2D1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ED9A0F92-EB09-4F2E-89B6-51F31B93B2D1}.Debug|x86.Build.0 = Debug|Any CPU
+		{ED9A0F92-EB09-4F2E-89B6-51F31B93B2D1}.Release|x86.ActiveCfg = Release|Any CPU
+		{ED9A0F92-EB09-4F2E-89B6-51F31B93B2D1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

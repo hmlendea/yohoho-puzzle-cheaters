@@ -1,4 +1,8 @@
-﻿namespace YohohoPuzzleCheaters.Menus
+﻿using System;
+
+using YohohoPuzzleCheaters.Cheats.TreasureDrop;
+
+namespace YohohoPuzzleCheaters.Menus
 {
     /// <summary>
     /// Main menu.
@@ -11,6 +15,16 @@
         public MainMenu()
         {
             Title = "Yohoho! Puzzle Cheaters";
+
+            AddCommand("td", "Predict next move in Treasure Drop", PredictNextMove);
+        }
+
+        void PredictNextMove()
+        {
+            TreasureDropCheat td = new TreasureDropCheat();
+            int bestColumn = td.GetNextMove();
+
+            Console.WriteLine($"Best column: {bestColumn}");
         }
     }
 }
