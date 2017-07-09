@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters", "YohohoPuzzleCheaters\YohohoPuzzleCheaters.csproj", "{F3E0844D-B536-4A47-98CB-8C06743DBF97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Infrastructure", "YohohoPuzzleCheaters.Infrastructure\YohohoPuzzleCheaters.Infrastructure.csproj", "{EA067580-01DD-4CFE-AB96-D2306D7C6302}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,5 +15,9 @@ Global
 		{F3E0844D-B536-4A47-98CB-8C06743DBF97}.Debug|x86.Build.0 = Debug|x86
 		{F3E0844D-B536-4A47-98CB-8C06743DBF97}.Release|x86.ActiveCfg = Release|x86
 		{F3E0844D-B536-4A47-98CB-8C06743DBF97}.Release|x86.Build.0 = Release|x86
+		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Debug|x86.Build.0 = Debug|Any CPU
+		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA067580-01DD-4CFE-AB96-D2306D7C6302}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

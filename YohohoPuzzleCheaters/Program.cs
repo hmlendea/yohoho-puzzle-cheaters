@@ -1,4 +1,4 @@
-﻿using System;
+﻿using YohohoPuzzleCheaters.Menus;
 
 namespace YohohoPuzzleCheaters
 {
@@ -6,7 +6,8 @@ namespace YohohoPuzzleCheaters
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Run();
         }
     }
 }

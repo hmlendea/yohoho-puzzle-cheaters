@@ -34,6 +34,17 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Menus\Menu.cs" />
+    <Compile Include="Menus\MainMenu.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Menus\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Infrastructure\YohohoPuzzleCheaters.Infrastructure.csproj">
+      <Project>{EA067580-01DD-4CFE-AB96-D2306D7C6302}</Project>
+      <Name>YohohoPuzzleCheaters.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
