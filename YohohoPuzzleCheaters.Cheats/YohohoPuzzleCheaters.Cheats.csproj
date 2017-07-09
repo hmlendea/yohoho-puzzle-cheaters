@@ -28,13 +28,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TreasureDrop\TreasureDropCheat.cs" />
+    <Compile Include="Enumerations\TreasureDropLeverState.cs" />
+    <Compile Include="Entities\TreasureDropGame.cs" />
+    <Compile Include="Entities\TreasureDropLever.cs" />
+    <Compile Include="TreasureDropCheat.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TreasureDrop\" />
+    <Folder Include="Enumerations\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
