@@ -38,6 +38,10 @@ namespace YohohoPuzzleCheaters.Cheats.TreasureDrop.Entities
         [Range(0, 1)]
         public int CurrentPlayer { get; set; }
 
+        public bool LastRoundHalved { get; set; }
+
+        public bool LastRoundDropped { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Game"/> class.
         /// </summary>

@@ -36,6 +36,11 @@
     <Compile Include="TreasureDrop\Enumerations\LeverState.cs" />
     <Compile Include="TreasureDrop\Entities\Game.cs" />
     <Compile Include="TreasureDrop\Entities\Lever.cs" />
+    <Compile Include="TreasureDrop\Entities\MoveList.cs" />
+    <Compile Include="TreasureDrop\Entities\TdHashTableValue.cs" />
+    <Compile Include="TreasureDrop\Entities\TdHashTableEntry.cs" />
+    <Compile Include="TreasureDrop\Entities\GameIdentifier.cs" />
+    <Compile Include="TreasureDrop\Entities\TdHashTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />
