@@ -32,14 +32,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Enumerations\TreasureDropLeverState.cs" />
-    <Compile Include="Entities\TreasureDropGame.cs" />
-    <Compile Include="Entities\TreasureDropLever.cs" />
-    <Compile Include="TreasureDropCheat.cs" />
+    <Compile Include="TreasureDrop\TreasureDropCheat.cs" />
+    <Compile Include="TreasureDrop\Enumerations\LeverState.cs" />
+    <Compile Include="TreasureDrop\Entities\Game.cs" />
+    <Compile Include="TreasureDrop\Entities\Lever.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enumerations\" />
-    <Folder Include="Entities\" />
+    <Folder Include="TreasureDrop\" />
+    <Folder Include="TreasureDrop\Enumerations\" />
+    <Folder Include="TreasureDrop\Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

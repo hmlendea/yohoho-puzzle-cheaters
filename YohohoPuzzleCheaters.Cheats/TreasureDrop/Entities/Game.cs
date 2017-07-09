@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace YohohoPuzzleCheaters.Cheats.Entities
+namespace YohohoPuzzleCheaters.Cheats.TreasureDrop.Entities
 {
     /// <summary>
     /// Treasure Drop game.
     /// </summary>
-    public class TreasureDropGame
+    public class Game
     {
         /// <summary>
         /// Gets or sets the round.
@@ -29,7 +29,7 @@ namespace YohohoPuzzleCheaters.Cheats.Entities
         /// Gets or sets the levers.
         /// </summary>
         /// <value>The levers.</value>
-        public TreasureDropLever[] Levers { get; set; }
+        public Lever[] Levers { get; set; }
 
         /// <summary>
         /// Gets or sets the current player index.
@@ -39,13 +39,13 @@ namespace YohohoPuzzleCheaters.Cheats.Entities
         public int CurrentPlayer { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TreasureDropGame"/> class.
+        /// Initializes a new instance of the <see cref="Game"/> class.
         /// </summary>
-        public TreasureDropGame()
+        public Game()
         {
             RoundScores = new int[2];
             Scores = new int[2];
-            Levers = new TreasureDropLever[40];
+            Levers = new Lever[40];
         }
     }
 }
