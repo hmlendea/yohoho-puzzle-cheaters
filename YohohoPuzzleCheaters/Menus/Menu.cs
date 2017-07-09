@@ -201,8 +201,10 @@ namespace YohohoPuzzleCheaters.Menus
             {
                 commandActions[cmd]();
             }
-
-            Console.WriteLine("Invalid command");
+            else
+            {
+                Console.WriteLine("Invalid command");
+            }
         }
 
         /// <summary>
