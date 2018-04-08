@@ -2,7 +2,7 @@
 {
     public enum ScreenType
     {
-        BilgingScreen,
-        UnknownScreen
+        UnknownScreen,
+        BilgingScreen
     }
 }

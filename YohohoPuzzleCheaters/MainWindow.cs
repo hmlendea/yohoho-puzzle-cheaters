@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Timers;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using NuciXNA.DataAccess.Resources;
@@ -20,6 +23,7 @@ namespace YohohoPuzzleCheaters
     /// </summary>
     public class MainWindow : Game
     {
+        readonly Timer windowReaderUpdateTimer;
         readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -28,11 +32,15 @@ namespace YohohoPuzzleCheaters
 
         readonly BilgingCheat bilgingCheat;
 
+        // TODO: Add this functionality to the NuciXNA.Gui package
+        Type currentScreen;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
+            windowReaderUpdateTimer = new Timer();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -40,6 +48,7 @@ namespace YohohoPuzzleCheaters
             cursor = new FakeCursor();
 
             bilgingCheat = new BilgingCheat();
+            currentScreen = typeof(UnknownScreen);
         }
 
         /// <summary>
@@ -51,6 +60,8 @@ namespace YohohoPuzzleCheaters
         protected override void Initialize()
         {
             base.Initialize();
+
+            Window.Position = new Point(0, 0);
         }
 
         /// <summary>
@@ -74,11 +85,15 @@ namespace YohohoPuzzleCheaters
             SettingsManager.Instance.LoadContent();
 
             ScreenManager.Instance.SpriteBatch = spriteBatch;
-            ScreenManager.Instance.StartingScreenType = typeof(SplashScreen);
+            ScreenManager.Instance.StartingScreenType = typeof(UnknownScreen);
             ScreenManager.Instance.LoadContent();
 
             fpsIndicator.LoadContent();
             cursor.LoadContent();
+
+            windowReaderUpdateTimer.Interval = 500;
+            windowReaderUpdateTimer.Elapsed += delegate { WindowManager.Instance.Update(0); };
+            windowReaderUpdateTimer.Start();
         }
 
         /// <summary>
@@ -105,7 +120,6 @@ namespace YohohoPuzzleCheaters
         {
             double elapsedTime = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //WindowManager.Instance.Update(elapsedTime);
             SettingsManager.Instance.Update(elapsedTime);
             ScreenManager.Instance.Update(gameTime);
 
@@ -126,6 +140,14 @@ namespace YohohoPuzzleCheaters
                 cursor.ReferenceLocation = new Point2D(
                     WindowManager.Instance.WindowLocation.X + BilgingCheat.TablePosX,
                     WindowManager.Instance.WindowLocation.Y + BilgingCheat.TablePosY);
+
+                ChangeScreens(typeof(BilgingScreen));
+            }
+            else
+            {
+                cursor.ReferenceLocation = Point2D.Empty;
+
+                ChangeScreens(typeof(UnknownScreen));
             }
 
             // TODO: Move this to the NuciXNA.Graphics package
@@ -150,6 +172,15 @@ namespace YohohoPuzzleCheaters
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        void ChangeScreens(Type screenType)
+        {
+            if (currentScreen != screenType)
+            {
+                ScreenManager.Instance.ChangeScreens(screenType);
+                currentScreen = screenType;
+            }
         }
     }
 }
