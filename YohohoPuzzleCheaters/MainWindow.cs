@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using NuciXNA.DataAccess.Resources;
 using NuciXNA.Graphics;
-using NuciXNA.Gui;
 using NuciXNA.Gui.Screens;
 using NuciXNA.Input;
 using NuciXNA.Primitives;
@@ -25,7 +24,7 @@ namespace YohohoPuzzleCheaters
         SpriteBatch spriteBatch;
 
         readonly FpsIndicator fpsIndicator;
-        readonly Cursor cursor;
+        readonly FakeCursor cursor;
 
         readonly BilgingCheat bilgingCheat;
 
@@ -38,7 +37,7 @@ namespace YohohoPuzzleCheaters
             Content.RootDirectory = "Content";
 
             fpsIndicator = new FpsIndicator();
-            cursor = new Cursor();
+            cursor = new FakeCursor();
 
             bilgingCheat = new BilgingCheat();
         }
@@ -121,6 +120,16 @@ namespace YohohoPuzzleCheaters
             }
 
             base.Update(gameTime);
+
+            if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
+            {
+                cursor.ReferenceLocation = new Point2D(
+                    WindowManager.Instance.WindowLocation.X + BilgingCheat.TablePosX,
+                    WindowManager.Instance.WindowLocation.Y + BilgingCheat.TablePosY);
+            }
+
+            // TODO: Move this to the NuciXNA.Graphics package
+            SettingsManager.Instance.GraphicsSettings.WindowLocation = new Point2D(Window.Position.X, Window.Position.Y);
         }
 
         /// <summary>

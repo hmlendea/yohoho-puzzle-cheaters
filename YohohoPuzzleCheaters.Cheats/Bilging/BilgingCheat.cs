@@ -8,8 +8,8 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
 {
     public class BilgingCheat
     {
-        const int TablePosX = 89;
-        const int TablePosY = 46;
+        public const int TablePosX = 89;
+        public const int TablePosY = 46;
         const int TableColumns = 6;
         const int TableRows = 12;
         const int PieceSize = 45;

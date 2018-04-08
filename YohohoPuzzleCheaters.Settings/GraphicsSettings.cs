@@ -11,14 +11,14 @@ namespace YohohoPuzzleCheaters.Settings
         public Size2D Resolution { get; set; }
 
         /// <summary>
-        /// Gets or sets the fullscreen mode.
+        /// Gets or sets the window location.
         /// </summary>
-        /// <value>The fullscreen mode.</value>
-        public bool Fullscreen { get; set; }
+        /// <value>The window location.</value>
+        public Point2D WindowLocation { get; set; }
 
         public GraphicsSettings()
         {
-            Resolution = new Size2D(1280, 720);
+            Resolution = new Size2D(270, 540);
         }
     }
 }
