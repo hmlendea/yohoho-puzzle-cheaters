@@ -1,47 +1,83 @@
 ﻿using System;
 using System.Drawing;
 
+using YohohoPuzzleCheaters.Cheats.Bilging;
 using YohohoPuzzleCheaters.Common.Windows;
-
-using Timer = System.Timers.Timer;
+using YohohoPuzzleCheaters.Infrastructure;
 
 namespace YohohoPuzzleCheaters
 {
     class MainClass
     {
-        static Timer timer;
+        static BilgingCheat bilgingCheat;
+
+        static float elapsedTime;
+
+        static DateTime lastUpdate;
 
         public static void Main(string[] args)
         {
             LoadContent();
 
-            timer.Start();
-
+            lastUpdate = DateTime.Now;
             while (true)
             {
-                int cursorX = Console.CursorLeft;
-                int cursorY = Console.CursorTop;
+                elapsedTime += (float)(DateTime.Now - lastUpdate).TotalMilliseconds;
+                lastUpdate = DateTime.Now;
 
-                Console.ReadKey();
-
-                Console.SetCursorPosition(cursorX, cursorY);
-                Console.Write(' ');
-                Console.SetCursorPosition(cursorX, cursorY);
+                Update(elapsedTime);
+                Draw();
             }
         }
 
         public static void LoadContent()
         {
-            timer = new Timer();
-            timer.Interval = 500;
-            timer.Elapsed += delegate { Update(); };
+            bilgingCheat = new BilgingCheat();
+            bilgingCheat.LoadContent();
 
             WindowManager.Instance.WindowLocation = new Point(278, 95);
+            WindowManager.Instance.WindowSize = new Size(810, 604);
+            WindowManager.Instance.LoadContent();
+
+            SettingsManager.Instance.DebugMode = true;
+            SettingsManager.Instance.LoadContent();
         }
 
-        public static void Update()
+        public static void UnloadContent()
         {
-            WindowManager.Instance.Update();
+            bilgingCheat.UnloadContent();
+
+            WindowManager.Instance.UnloadContent();
+            SettingsManager.Instance.UnloadContent();
+        }
+
+        public static void Update(float elapsedTime)
+        {
+            WindowManager.Instance.Update(elapsedTime);
+            SettingsManager.Instance.Update(elapsedTime);
+
+            if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
+            {
+                bilgingCheat.Update(elapsedTime);
+            }
+        }
+
+        public static void Draw()
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.Clear();
+
+            if (SettingsManager.Instance.DebugMode)
+            {
+                Console.WriteLine($"Elapsed time: {TimeSpan.FromMilliseconds(elapsedTime)}");
+            }
+
+            Console.WriteLine($"Screen: {WindowManager.Instance.CurrentScreen}");
+
+            if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
+            {
+                bilgingCheat.Draw();
+            }
         }
     }
 }

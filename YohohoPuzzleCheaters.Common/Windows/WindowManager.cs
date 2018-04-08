@@ -7,6 +7,9 @@ namespace YohohoPuzzleCheaters.Common.Windows
         static volatile WindowManager instance;
         static object syncRoot = new object();
 
+        Bitmap windowBitmap;
+        Graphics graphicsHandle;
+
         /// <summary>
         /// Gets the instance.
         /// </summary>
@@ -32,9 +35,39 @@ namespace YohohoPuzzleCheaters.Common.Windows
 
         public Point WindowLocation { get; set; }
 
+        public Size WindowSize { get; set; }
+
         public ScreenType CurrentScreen { get; set; }
 
-        public void Update()
+        public void LoadContent()
+        {
+            windowBitmap = new Bitmap(WindowSize.Width, WindowSize.Height);
+            graphicsHandle = Graphics.FromImage(windowBitmap);
+        }
+
+        public void UnloadContent()
+        {
+            graphicsHandle.Dispose();
+            windowBitmap.Dispose();
+        }
+
+        public void Update(float elapsedTime)
+        {
+            UpdateWindowBitmap();
+            CalculateCurrentScreen();
+        }
+
+        public Color GetPixel(int x, int y) => windowBitmap.GetPixel(x, y);
+
+        void UpdateWindowBitmap()
+        {
+            Point source = new Point(WindowLocation.X, WindowLocation.Y);
+            Point destination = new Point(0, 0);
+
+            graphicsHandle.CopyFromScreen(source, destination, windowBitmap.Size, CopyPixelOperation.SourceCopy);
+        }
+
+        void CalculateCurrentScreen()
         {
             Color clr000x000 = GetPixel(0, 0);
             Color clr449x000 = GetPixel(449, 0);
@@ -54,19 +87,6 @@ namespace YohohoPuzzleCheaters.Common.Windows
             {
                 CurrentScreen = ScreenType.UnknownScreen;
             }
-        }
-
-        public Color GetPixel(int x, int y)
-        {
-            Bitmap screenBitmap = new Bitmap(1, 1);
-            Graphics g = Graphics.FromImage(screenBitmap);
-
-            Point source = new Point(WindowLocation.X + x, WindowLocation.Y + y);
-            Point destination = new Point(0, 0);
-
-            g.CopyFromScreen(source, destination, screenBitmap.Size, CopyPixelOperation.SourceCopy);
-
-            return screenBitmap.GetPixel(0, 0);
         }
     }
 }

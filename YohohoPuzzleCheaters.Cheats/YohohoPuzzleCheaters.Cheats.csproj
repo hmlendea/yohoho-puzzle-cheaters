@@ -29,6 +29,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -41,11 +42,24 @@
     <Compile Include="TreasureDrop\Entities\TdHashTableEntry.cs" />
     <Compile Include="TreasureDrop\Entities\GameIdentifier.cs" />
     <Compile Include="TreasureDrop\Entities\TdHashTable.cs" />
+    <Compile Include="Bilging\BilgingPiece.cs" />
+    <Compile Include="Bilging\BilgingCheat.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />
     <Folder Include="TreasureDrop\Enumerations\" />
     <Folder Include="TreasureDrop\Entities\" />
+    <Folder Include="Bilging\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Common\YohohoPuzzleCheaters.Common.csproj">
+      <Project>{6680F41C-F6CB-4A36-9B2A-83A326184F25}</Project>
+      <Name>YohohoPuzzleCheaters.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Infrastructure\YohohoPuzzleCheaters.Infrastructure.csproj">
+      <Project>{EA067580-01DD-4CFE-AB96-D2306D7C6302}</Project>
+      <Name>YohohoPuzzleCheaters.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
