@@ -3,11 +3,10 @@ using Microsoft.Xna.Framework;
 using NuciXNA.Gui;
 using NuciXNA.Gui.GuiElements;
 using NuciXNA.Gui.Screens;
-using NuciXNA.Graphics.SpriteEffects;
 using NuciXNA.Input.Events;
 using NuciXNA.Primitives;
 
-namespace YohohoPuzzleCheaters.Gui.Screens
+namespace YohohoPuzzleCheaters.GUI.Screens
 {
     /// <summary>
     /// Splash screen.
@@ -79,8 +78,7 @@ namespace YohohoPuzzleCheaters.Gui.Screens
 
         void GoToNextScreen()
         {
-            // TODO: Switch to next screen
-            //ScreenManager.Instance.ChangeScreens(typeof(NEXTSCREEN));
+            ScreenManager.Instance.ChangeScreens(typeof(UnknownScreen));
         }
     }
 }

@@ -10,8 +10,8 @@ using NuciXNA.Primitives;
 
 using YohohoPuzzleCheaters.Cheats.Bilging;
 using YohohoPuzzleCheaters.Common.Windows;
-using YohohoPuzzleCheaters.Gui;
-using YohohoPuzzleCheaters.Gui.Screens;
+using YohohoPuzzleCheaters.GUI;
+using YohohoPuzzleCheaters.GUI.Screens;
 using YohohoPuzzleCheaters.Settings;
 
 namespace YohohoPuzzleCheaters
@@ -106,7 +106,7 @@ namespace YohohoPuzzleCheaters
         {
             double elapsedTime = gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            WindowManager.Instance.Update(elapsedTime);
+            //WindowManager.Instance.Update(elapsedTime);
             SettingsManager.Instance.Update(elapsedTime);
             ScreenManager.Instance.Update(gameTime);
 

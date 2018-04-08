@@ -54,6 +54,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="FpsIndicator.cs" />
     <Compile Include="Screens\SplashScreen.cs" />
+    <Compile Include="Screens\UnknownScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace YohohoPuzzleCheaters.Gui.Helpers
+namespace YohohoPuzzleCheaters.GUI.Helpers
 {
     /// <summary>
     /// Framerate counter.

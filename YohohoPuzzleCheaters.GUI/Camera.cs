@@ -7,7 +7,7 @@ using NuciXNA.Primitives;
 
 using YohohoPuzzleCheaters.Settings;
 
-namespace YohohoPuzzleCheaters.Gui
+namespace YohohoPuzzleCheaters.GUI
 {
     public class Camera
     {

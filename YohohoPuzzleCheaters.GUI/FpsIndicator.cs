@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NuciXNA.DataAccess.Resources;
 
-using YohohoPuzzleCheaters.Gui.Helpers;
+using YohohoPuzzleCheaters.GUI.Helpers;
 using YohohoPuzzleCheaters.Settings;
 
-namespace YohohoPuzzleCheaters.Gui
+namespace YohohoPuzzleCheaters.GUI
 {
     /// <summary>
     /// FPS indicator.
