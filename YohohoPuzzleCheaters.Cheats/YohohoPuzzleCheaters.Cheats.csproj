@@ -60,6 +60,10 @@
       <Project>{EA067580-01DD-4CFE-AB96-D2306D7C6302}</Project>
       <Name>YohohoPuzzleCheaters.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Settings\YohohoPuzzleCheaters.Settings.csproj">
+      <Project>{0384A4CF-1368-49E0-A317-786313DEF943}</Project>
+      <Name>YohohoPuzzleCheaters.Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

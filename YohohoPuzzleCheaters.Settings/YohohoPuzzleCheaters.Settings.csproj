@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6680F41C-F6CB-4A36-9B2A-83A326184F25}</ProjectGuid>
+    <ProjectGuid>{0384A4CF-1368-49E0-A317-786313DEF943}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>YohohoPuzzleCheaters.Common</RootNamespace>
-    <AssemblyName>YohohoPuzzleCheaters.Common</AssemblyName>
+    <RootNamespace>YohohoPuzzleCheaters.Settings</RootNamespace>
+    <AssemblyName>YohohoPuzzleCheaters.Settings</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -28,19 +29,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="NuciXNA.Primitives">
       <HintPath>..\packages\NuciXNA.Primitives.1.0.4\lib\net45\NuciXNA.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="NuciXNA.Graphics">
+      <HintPath>..\packages\NuciXNA.Graphics.1.0.1\lib\net45\NuciXNA.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="NuciXNA.DataAccess">
+      <HintPath>..\packages\NuciXNA.DataAccess.1.0.4.1\lib\net45\NuciXNA.DataAccess.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Windows\WindowManager.cs" />
-    <Compile Include="Windows\ScreenType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Windows\" />
+    <Compile Include="SettingsManager.cs" />
+    <Compile Include="GraphicsSettings.cs" />
+    <Compile Include="AudioSettings.cs" />
+    <Compile Include="ApplicationPaths.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

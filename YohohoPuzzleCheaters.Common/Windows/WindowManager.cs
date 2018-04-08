@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 
+using NuciXNA.Primitives;
+
 namespace YohohoPuzzleCheaters.Common.Windows
 {
     public class WindowManager
@@ -33,9 +35,9 @@ namespace YohohoPuzzleCheaters.Common.Windows
             }
         }
 
-        public Point WindowLocation { get; set; }
+        public Point2D WindowLocation { get; set; }
 
-        public Size WindowSize { get; set; }
+        public Size2D WindowSize { get; set; }
 
         public ScreenType CurrentScreen { get; set; }
 
@@ -51,7 +53,7 @@ namespace YohohoPuzzleCheaters.Common.Windows
             windowBitmap.Dispose();
         }
 
-        public void Update(float elapsedTime)
+        public void Update(double elapsedTime)
         {
             UpdateWindowBitmap();
             CalculateCurrentScreen();

@@ -2,7 +2,7 @@
 using System.Drawing;
 
 using YohohoPuzzleCheaters.Common.Windows;
-using YohohoPuzzleCheaters.Infrastructure;
+using YohohoPuzzleCheaters.Settings;
 
 namespace YohohoPuzzleCheaters.Cheats.Bilging
 {
@@ -26,7 +26,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             table = null;
         }
 
-        public void Update(float elapsedTime)
+        public void Update(double elapsedTime)
         {
             for (int y = 0; y < TableRows; y++)
             {

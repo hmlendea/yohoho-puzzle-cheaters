@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Cheats
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Common", "YohohoPuzzleCheaters.Common\YohohoPuzzleCheaters.Common.csproj", "{6680F41C-F6CB-4A36-9B2A-83A326184F25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Data", "YohohoPuzzleCheaters.Data\YohohoPuzzleCheaters.Data.csproj", "{9D3BF4E3-6BA0-40D9-A0C7-F3D32C1F1687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.GUI", "YohohoPuzzleCheaters.GUI\YohohoPuzzleCheaters.GUI.csproj", "{D446A846-9BBC-4A7D-84B0-214B83FEFE2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YohohoPuzzleCheaters.Settings", "YohohoPuzzleCheaters.Settings\YohohoPuzzleCheaters.Settings.csproj", "{0384A4CF-1368-49E0-A317-786313DEF943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -31,5 +37,17 @@ Global
 		{6680F41C-F6CB-4A36-9B2A-83A326184F25}.Debug|x86.Build.0 = Debug|Any CPU
 		{6680F41C-F6CB-4A36-9B2A-83A326184F25}.Release|x86.ActiveCfg = Release|Any CPU
 		{6680F41C-F6CB-4A36-9B2A-83A326184F25}.Release|x86.Build.0 = Release|Any CPU
+		{9D3BF4E3-6BA0-40D9-A0C7-F3D32C1F1687}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D3BF4E3-6BA0-40D9-A0C7-F3D32C1F1687}.Debug|x86.Build.0 = Debug|Any CPU
+		{9D3BF4E3-6BA0-40D9-A0C7-F3D32C1F1687}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D3BF4E3-6BA0-40D9-A0C7-F3D32C1F1687}.Release|x86.Build.0 = Release|Any CPU
+		{D446A846-9BBC-4A7D-84B0-214B83FEFE2F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D446A846-9BBC-4A7D-84B0-214B83FEFE2F}.Debug|x86.Build.0 = Debug|Any CPU
+		{D446A846-9BBC-4A7D-84B0-214B83FEFE2F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D446A846-9BBC-4A7D-84B0-214B83FEFE2F}.Release|x86.Build.0 = Release|Any CPU
+		{0384A4CF-1368-49E0-A317-786313DEF943}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0384A4CF-1368-49E0-A317-786313DEF943}.Debug|x86.Build.0 = Debug|Any CPU
+		{0384A4CF-1368-49E0-A317-786313DEF943}.Release|x86.ActiveCfg = Release|Any CPU
+		{0384A4CF-1368-49E0-A317-786313DEF943}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

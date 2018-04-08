@@ -1,83 +1,99 @@
-﻿using System;
-using System.Drawing;
+﻿#region Using Statements
+using System;
+using System.IO;
 
-using YohohoPuzzleCheaters.Cheats.Bilging;
-using YohohoPuzzleCheaters.Common.Windows;
-using YohohoPuzzleCheaters.Infrastructure;
+using YohohoPuzzleCheaters.Settings;
+
+#if MONOMAC
+using MonoMac.AppKit;
+using MonoMac.Foundation;
+
+#elif __IOS__ || __TVOS__
+using Foundation;
+using UIKit;
+#endif
+#endregion
 
 namespace YohohoPuzzleCheaters
 {
-    class MainClass
+#if __IOS__ || __TVOS__
+    [Register("AppDelegate")]
+    class Program : UIApplicationDelegate
+    
+#else
+    static class Program
+#endif
     {
-        static BilgingCheat bilgingCheat;
+        public static MainWindow Game { get; private set; }
 
-        static float elapsedTime;
-
-        static DateTime lastUpdate;
-
-        public static void Main(string[] args)
+        internal static void RunGame()
         {
-            LoadContent();
+            Game = new MainWindow();
+            Game.Run();
+#if !__IOS__ && !__TVOS__
+            Game.Dispose();
+#endif
+        }
 
-            lastUpdate = DateTime.Now;
-            while (true)
+        internal static void PrepareFiles()
+        {
+            if (!Directory.Exists(ApplicationPaths.UserDataDirectory))
             {
-                elapsedTime += (float)(DateTime.Now - lastUpdate).TotalMilliseconds;
-                lastUpdate = DateTime.Now;
-
-                Update(elapsedTime);
-                Draw();
+                Directory.CreateDirectory(ApplicationPaths.UserDataDirectory);
             }
         }
 
-        public static void LoadContent()
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+#if !MONOMAC && !__IOS__ && !__TVOS__
+        [STAThread]
+#endif
+        static void Main()
         {
-            bilgingCheat = new BilgingCheat();
-            bilgingCheat.LoadContent();
+            PrepareFiles();
 
-            WindowManager.Instance.WindowLocation = new Point(278, 95);
-            WindowManager.Instance.WindowSize = new Size(810, 604);
-            WindowManager.Instance.LoadContent();
+#if MONOMAC
+            NSApplication.Init ();
 
-            SettingsManager.Instance.DebugMode = true;
-            SettingsManager.Instance.LoadContent();
-        }
-
-        public static void UnloadContent()
-        {
-            bilgingCheat.UnloadContent();
-
-            WindowManager.Instance.UnloadContent();
-            SettingsManager.Instance.UnloadContent();
-        }
-
-        public static void Update(float elapsedTime)
-        {
-            WindowManager.Instance.Update(elapsedTime);
-            SettingsManager.Instance.Update(elapsedTime);
-
-            if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
-            {
-                bilgingCheat.Update(elapsedTime);
+            using (var p = new NSAutoreleasePool ()) {
+                NSApplication.SharedApplication.Delegate = new AppDelegate();
+                NSApplication.Main(args);
             }
+#elif __IOS__ || __TVOS__
+            UIApplication.Main(args, null, "AppDelegate");
+#else
+            RunGame();
+#endif
         }
 
-        public static void Draw()
+#if __IOS__ || __TVOS__
+        public override void FinishedLaunching(UIApplication app)
         {
-            Console.SetCursorPosition(0, 0);
-            Console.Clear();
-
-            if (SettingsManager.Instance.DebugMode)
-            {
-                Console.WriteLine($"Elapsed time: {TimeSpan.FromMilliseconds(elapsedTime)}");
-            }
-
-            Console.WriteLine($"Screen: {WindowManager.Instance.CurrentScreen}");
-
-            if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
-            {
-                bilgingCheat.Draw();
-            }
+            RunGame();
         }
+#endif
     }
+
+#if MONOMAC
+    class AppDelegate : NSApplicationDelegate
+    {
+        public override void FinishedLaunching (MonoMac.Foundation.NSObject notification)
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs a) =>  {
+                if (a.Name.StartsWith("MonoMac")) {
+                    return typeof(MonoMac.AppKit.AppKitFramework).Assembly;
+                }
+                return null;
+            };
+            Program.RunGame();
+        }
+
+        public override bool ApplicationShouldTerminateAfterLastWindowClosed (NSApplication sender)
+        {
+            return true;
+        }
+    }  
+#endif
 }
+
