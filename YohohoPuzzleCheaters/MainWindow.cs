@@ -30,8 +30,6 @@ namespace YohohoPuzzleCheaters
         readonly FpsIndicator fpsIndicator;
         readonly FakeCursor cursor;
 
-        readonly BilgingCheat bilgingCheat;
-
         // TODO: Add this functionality to the NuciXNA.Gui package
         Type currentScreen;
 
@@ -47,7 +45,6 @@ namespace YohohoPuzzleCheaters
             fpsIndicator = new FpsIndicator();
             cursor = new FakeCursor();
 
-            bilgingCheat = new BilgingCheat();
             currentScreen = typeof(UnknownScreen);
         }
 
@@ -71,8 +68,6 @@ namespace YohohoPuzzleCheaters
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            bilgingCheat.LoadContent();
 
             WindowManager.Instance.WindowLocation = new Point2D(278, 95);
             WindowManager.Instance.WindowSize = new Size2D(810, 604);
@@ -101,8 +96,6 @@ namespace YohohoPuzzleCheaters
         /// </summary>
         protected override void UnloadContent()
         {
-            bilgingCheat.UnloadContent();
-
             WindowManager.Instance.UnloadContent();
             SettingsManager.Instance.UnloadContent();
             ScreenManager.Instance.UnloadContent();
@@ -127,11 +120,6 @@ namespace YohohoPuzzleCheaters
 
             fpsIndicator.Update(gameTime);
             cursor.Update(gameTime);
-
-            if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
-            {
-                bilgingCheat.Update(elapsedTime);
-            }
 
             base.Update(gameTime);
 

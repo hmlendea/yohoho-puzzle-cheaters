@@ -70,6 +70,10 @@
       <Project>{6680F41C-F6CB-4A36-9B2A-83A326184F25}</Project>
       <Name>YohohoPuzzleCheaters.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Cheats\YohohoPuzzleCheaters.Cheats.csproj">
+      <Project>{ED9A0F92-EB09-4F2E-89B6-51F31B93B2D1}</Project>
+      <Name>YohohoPuzzleCheaters.Cheats</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

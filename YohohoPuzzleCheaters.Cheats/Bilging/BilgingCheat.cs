@@ -10,9 +10,9 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
     {
         public const int TablePosX = 89;
         public const int TablePosY = 46;
-        const int TableColumns = 6;
-        const int TableRows = 12;
-        const int PieceSize = 45;
+        public const int TableColumns = 6;
+        public const int TableRows = 12;
+        public const int PieceSize = 45;
 
         int[,] table;
 
@@ -82,6 +82,10 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 DrawTable();
             }
         }
+
+        public int GetPiece(int x, int y) => table[x, y];
+
+        public int GetBestTarget() => 10;
 
         void DrawTable()
         {
