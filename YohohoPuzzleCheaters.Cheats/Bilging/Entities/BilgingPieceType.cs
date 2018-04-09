@@ -2,14 +2,9 @@
 {
     public enum BilgingPieceType
     {
+        Empty,
         Unknown,
-        SquareDark,
-        SquareLight,
-        CircleDark,
-        CircleLight,
-        OctogonDark,
-        OctogonLight,
-        PentagonDark,
+        Movable,
         Pufferfish,
         Jellyfish,
         Crab

@@ -1,63 +1,70 @@
-﻿namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
+﻿using System.Linq;
+
+namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
 {
     public class BilgingBoard
     {
         public const short BoardWidth = 6;
         public const short BoardHeight = 12;
 
-        readonly BilgingPieceType[,] pieces;
+        readonly BilgingPiece[] pieces;
 
-        public int WaterDepth { get; set; }
+        public int WaterLevel { get; set; }
 
         public BilgingBoard()
         {
-            pieces = new BilgingPieceType[BoardWidth, BoardHeight];
+            pieces = new BilgingPiece[BoardWidth * BoardHeight];
+
+            for (int i = 0; i < pieces.Length; i++)
+            {
+                pieces[i] = BilgingPiece.Unknown;
+            }
         }
 
-        public BilgingPieceType this[int x, int y]
+        public BilgingPiece this[int x, int y]
         {
             get
             {
-                return pieces[x, y];
+                return pieces[y * BoardWidth + x];
             }
             set
             {
-                pieces[x, y] = value;
+                pieces[y * BoardWidth + x] = value;
             }
         }
 
-        public BilgingPieceType this[int index]
+        public BilgingPiece this[int index]
         {
             get
             {
-                int x = index % BoardWidth;
-                int y = index / BoardHeight;
-
-                return pieces[x, y];
+                return pieces[index];
             }
             set
             {
-                int x = index % BoardWidth;
-                int y = index / BoardHeight;
-
-                pieces[x, y] = value;
+                pieces[index] = value;
             }
         }
 
-        public bool ContainsUnknownPieces()
+        public int UnknownPieces => pieces.Count(x => x.Type == BilgingPieceType.Unknown);
+
+        public int EmptyPiecesCount => pieces.Count(x => x.Type == BilgingPieceType.Empty);
+
+        public int CrabsCount => pieces.Count(x => x.Type == BilgingPieceType.Crab);
+
+        public BilgingBoard CreateCopy()
         {
+            BilgingBoard board = new BilgingBoard();
+            board.WaterLevel = WaterLevel;
+
             for (int y = 0; y < BoardHeight; y++)
             {
                 for (int x = 0; x < BoardWidth; x++)
                 {
-                    if (pieces[x, y] == BilgingPieceType.Unknown)
-                    {
-                        return true;
-                    }
+                    board[x, y] = new BilgingPiece(this[x, y].Id, this[x, y].Type);
                 }
             }
 
-            return false;
+            return board;
         }
     }
 }

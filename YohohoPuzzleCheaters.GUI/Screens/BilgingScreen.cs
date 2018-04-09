@@ -39,16 +39,16 @@ namespace YohohoPuzzleCheaters.GUI.Screens
                 Location = new Point2D(40, 40)
             };
 
-            bilgingCheat.LoadContent();
             pieceSprite.LoadContent();
             targetSprite.LoadContent();
+
+            bilgingCheat.Start();
 
             base.LoadContent();
         }
 
         public override void UnloadContent()
         {
-            bilgingCheat.UnloadContent();
             pieceSprite.UnloadContent();
             targetSprite.UnloadContent();
 
@@ -57,7 +57,6 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
         public override void Update(GameTime gameTime)
         {
-            bilgingCheat.Update(gameTime.ElapsedGameTime.TotalMilliseconds);
             pieceSprite.Update(gameTime);
             targetSprite.Update(gameTime);
 
@@ -67,11 +66,7 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         public override void Draw(SpriteBatch spriteBatch)
         {
             DrawTable(spriteBatch);
-
-            if (!bilgingCheat.ContainsUnknownPieces())
-            {
-                DrawTarget(spriteBatch);
-            }
+            DrawTarget(spriteBatch);
 
             base.Draw(spriteBatch);
         }
@@ -82,15 +77,16 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             {
                 for (int x = 0; x < BilgingCheat.TableColumns; x++)
                 {
-                    BilgingPieceType piece = bilgingCheat.GetPiece(x, y);
+                    BilgingPiece piece = bilgingCheat.GetPiece(x, y);
 
-                    if (piece == BilgingPieceType.Unknown)
+                    if (piece.Type == BilgingPieceType.Unknown ||
+                        piece.Type == BilgingPieceType.Empty)
                     {
                         continue;
                     }
 
                     pieceSprite.SourceRectangle = new Rectangle2D(
-                        ((int)piece - 1) * BilgingCheat.PieceSize, 0,
+                        piece.Id * BilgingCheat.PieceSize, 0,
                         BilgingCheat.PieceSize, BilgingCheat.PieceSize);
                     pieceSprite.Location = new Point2D(
                         x * BilgingCheat.PieceSize,
@@ -103,11 +99,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
         void DrawTarget(SpriteBatch spriteBatch)
         {
-            BilgingResult bestTarget = bilgingCheat.GetBestTarget();
+            BilgingMove bestMove = bilgingCheat.GetBestTarget();
 
             targetSprite.Location = new Point2D(
-                bestTarget.Selection1.X * BilgingCheat.PieceSize + BilgingCheat.PieceSize / 2,
-                bestTarget.Selection1.Y * BilgingCheat.PieceSize);
+                bestMove.X * BilgingCheat.PieceSize + BilgingCheat.PieceSize / 2,
+                bestMove.Y * BilgingCheat.PieceSize);
 
             targetSprite.Draw(spriteBatch);
         }

@@ -48,9 +48,8 @@
     <Compile Include="Bilging\BilgingCheat.cs" />
     <Compile Include="Bilging\Entities\BilgingBoard.cs" />
     <Compile Include="Bilging\Entities\BilgingMove.cs" />
-    <Compile Include="Bilging\Entities\BilgingPieceType.cs" />
     <Compile Include="Bilging\Entities\BilgingPiece.cs" />
-    <Compile Include="Bilging\Entities\BilgingResult.cs" />
+    <Compile Include="Bilging\Entities\BilgingPieceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />
