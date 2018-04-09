@@ -30,6 +30,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Drawing" />
+    <Reference Include="NuciXNA.Primitives">
+      <HintPath>..\packages\NuciXNA.Primitives.1.0.4\lib\net45\NuciXNA.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +67,13 @@
       <Project>{0384A4CF-1368-49E0-A317-786313DEF943}</Project>
       <Name>YohohoPuzzleCheaters.Settings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Models\YohohoPuzzleCheaters.Models.csproj">
+      <Project>{4FD12A40-8203-4B8A-9556-B04BF044F4AE}</Project>
+      <Name>YohohoPuzzleCheaters.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

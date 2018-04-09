@@ -6,6 +6,7 @@ using NuciXNA.Gui.Screens;
 using NuciXNA.Primitives;
 
 using YohohoPuzzleCheaters.Cheats.Bilging;
+using YohohoPuzzleCheaters.Models;
 
 namespace YohohoPuzzleCheaters.GUI.Screens
 {
@@ -66,7 +67,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         public override void Draw(SpriteBatch spriteBatch)
         {
             DrawTable(spriteBatch);
-            DrawTarget(spriteBatch);
+
+            if (!bilgingCheat.ContainsUnknownPieces())
+            {
+                DrawTarget(spriteBatch);
+            }
 
             base.Draw(spriteBatch);
         }
@@ -98,14 +103,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
         void DrawTarget(SpriteBatch spriteBatch)
         {
-            int bestTarget = bilgingCheat.GetBestTarget();
-
-            int targetX = bestTarget % BilgingCheat.TableColumns;
-            int targetY = bestTarget / BilgingCheat.TableColumns;
+            BilgingResult bestTarget = bilgingCheat.GetBestTarget();
 
             target.Location = new Point2D(
-                targetX * BilgingCheat.PieceSize + BilgingCheat.PieceSize / 2,
-                targetY * BilgingCheat.PieceSize);
+                bestTarget.Selection1.X * BilgingCheat.PieceSize + BilgingCheat.PieceSize / 2,
+                bestTarget.Selection1.Y * BilgingCheat.PieceSize);
 
             target.Draw(spriteBatch);
         }

@@ -8,6 +8,8 @@
         CircleDark,
         CircleLight,
         OctogonDark,
-        OctogonLight
+        OctogonLight,
+        PentagonDark,
+        BlowFish
     }
 }

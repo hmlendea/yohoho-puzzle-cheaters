@@ -112,6 +112,10 @@
       <Project>{0384A4CF-1368-49E0-A317-786313DEF943}</Project>
       <Name>YohohoPuzzleCheaters.Settings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YohohoPuzzleCheaters.Models\YohohoPuzzleCheaters.Models.csproj">
+      <Project>{4FD12A40-8203-4B8A-9556-B04BF044F4AE}</Project>
+      <Name>YohohoPuzzleCheaters.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+
+using NuciXNA.Primitives;
 
 using YohohoPuzzleCheaters.Common.Windows;
-using YohohoPuzzleCheaters.Settings;
+using YohohoPuzzleCheaters.Models;
 
 namespace YohohoPuzzleCheaters.Cheats.Bilging
 {
@@ -67,6 +71,11 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                     {
                         table[x, y] = (int)BilgingPiece.OctogonLight;
                     }
+                    else if (pixel22x22.R == 250 && pixel22x22.G == 242 && pixel22x22.B == 068 ||
+                             pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 125)
+                    {
+                        table[x, y] = (int)BilgingPiece.BlowFish;
+                    }
                     else
                     {
                         table[x, y] = (int)BilgingPiece.Unknown;
@@ -75,31 +84,198 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             }
         }
 
-        public void Draw()
-        {
-            if (SettingsManager.Instance.DebugMode)
-            {
-                DrawTable();
-            }
-        }
-
         public int GetPiece(int x, int y) => table[x, y];
 
-        public int GetBestTarget() => 10;
-
-        void DrawTable()
+        public bool ContainsUnknownPieces()
         {
-            Console.WriteLine("Table: ");
-
             for (int y = 0; y < TableRows; y++)
             {
                 for (int x = 0; x < TableColumns; x++)
                 {
-                    Console.Write($"{table[x, y]} ");
+                    if (table[x, y] == 0)
+                    {
+                        return true;
+                    }
                 }
-
-                Console.WriteLine();
             }
+
+            return false;
         }
+
+        public BilgingResult GetBestTarget()
+        {
+            foreach (int[][] pattern in patterns)
+            {
+                BilgingResult result = GetTargetForPattern(pattern);
+
+                if (result.IsSuccessful)
+                {
+                    return result;
+                }
+            }
+
+            return CreateNonSuccessResult();
+        }
+
+        BilgingResult GetTargetForPattern(int[][] pattern)
+        {
+            int patW = pattern[0].Length;
+            int patH = pattern.Length;
+
+            for (int y = 0; y < TableRows - patH; y++)
+            {
+                for (int x = 0; x < TableColumns - patW; x++)
+                {
+                    int target1X = -1;
+                    int target1Y = -1;
+                    int target2X = -1;
+                    int target2Y = -1;
+
+                    List<int> pieces = new List<int>();
+
+                    for (int patY = 0; patY < patH; patY++)
+                    {
+                        for (int patX = 0; patX < patW; patX++)
+                        {
+                            if (pattern[patY][patX] == 1 || pattern[patY][patX] == 3)
+                            {
+                                pieces.Add(table[x + patX, y + patY]);
+                            }
+
+                            if (pattern[patY][patX] == 2)
+                            {
+                                target1X = x + patX;
+                                target1Y = y + patY;
+                            }
+                            else if (pattern[patY][patX] == 3)
+                            {
+                                target2X = x + patX;
+                                target2Y = y + patY;
+                            }
+                        }
+                    }
+
+                    if (pieces.Contains(0) || pieces.Distinct().Count() == 1)
+                    {
+                        BilgingResult result = new BilgingResult();
+
+                        Point2D target1 = new Point2D(target1X, target1Y);
+                        Point2D target2 = new Point2D(target2X, target2Y);
+
+                        if (target1X < target2X)
+                        {
+                            result.Selection1 = target1;
+                            result.Selection2 = target2;
+                        }
+                        else
+                        {
+                            result.Selection1 = target2;
+                            result.Selection2 = target1;
+                        }
+
+                        return result;
+                    }
+                }
+            }
+
+            return CreateNonSuccessResult();
+        }
+
+        BilgingResult CreateNonSuccessResult()
+        {
+            return new BilgingResult
+            {
+                Selection1 = new Point2D(-1, -1),
+                Selection2 = new Point2D(-1, -1)
+            };
+        }
+
+        // TODO: Refactor this. It literally gives me nightmares
+        // 0 can be anything
+        // 1 must be the same as other 1s
+        // selection has value + 2
+        List<int[][]> patterns = new List<int[][]>
+        {
+            new int[][] {
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 3, 2, 1, 1 },
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 0, 1, 0, 0 } },
+            new int[][] {
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 1, 1, 2, 3 },
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 0, 0, 1, 0 } },
+            new int[][] {
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 3, 2, 1, 1 },
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 0, 1, 0, 0 } },
+            new int[][] {
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 0, 1, 0, 0 },
+                new int[] { 3, 2, 1, 1 },
+                new int[] { 0, 1, 0, 0 } },
+            new int[][] {
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 1, 1, 2, 3 },
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 0, 0, 1, 0 } },
+            new int[][] {
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 0, 0, 1, 0 },
+                new int[] { 1, 1, 2, 3 },
+                new int[] { 0, 0, 1, 0 } },
+            new int[][] {
+                new int[] { 0, 1 },
+                new int[] { 3, 2 },
+                new int[] { 0, 1 },
+                new int[] { 0, 1 } },
+            new int[][] {
+                new int[] { 0, 1 },
+                new int[] { 0, 1 },
+                new int[] { 3, 2 },
+                new int[] { 0, 1 } },
+            new int[][] {
+                new int[] { 1, 0 },
+                new int[] { 2, 3 },
+                new int[] { 1, 0 },
+                new int[] { 1, 0 } },
+            new int[][] {
+                new int[] { 1, 0 },
+                new int[] { 1, 0 },
+                new int[] { 2, 3 },
+                new int[] { 1, 0 } },
+            new int[][] {
+                new int[] { 3, 2 },
+                new int[] { 0, 1 },
+                new int[] { 0, 1 } },
+            new int[][] {
+                new int[] { 0, 1 },
+                new int[] { 3, 2 },
+                new int[] { 0, 1 } },
+            new int[][] {
+                new int[] { 0, 1 },
+                new int[] { 0, 1 },
+                new int[] { 3, 2 } },
+            new int[][] {
+                new int[] { 2, 3 },
+                new int[] { 1, 0 },
+                new int[] { 1, 0 } },
+            new int[][] {
+                new int[] { 1, 0 },
+                new int[] { 2, 3 },
+                new int[] { 1, 0 } },
+            new int[][] {
+                new int[] { 1, 0 },
+                new int[] { 1, 0 },
+                new int[] { 2, 3 } },
+            new int[][] {
+                new int[] { 1, 1, 2, 3 } },
+            new int[][] {
+                new int[] { 3, 2, 1, 1 } }
+        };
     }
 }
