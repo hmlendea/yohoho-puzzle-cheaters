@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
 {
-    public class BilgingBoard
+    public class BilgingBoard : IEquatable<BilgingBoard>
     {
         public const short BoardWidth = 6;
         public const short BoardHeight = 12;
@@ -45,7 +46,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
             }
         }
 
-        public int UnknownPieces => pieces.Count(x => x.Type == BilgingPieceType.Unknown);
+        public bool ContainsUnknownPieces => pieces.Any(x => x.Type == BilgingPieceType.Unknown);
 
         public int EmptyPiecesCount => pieces.Count(x => x.Type == BilgingPieceType.Empty);
 
@@ -66,5 +67,69 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
 
             return board;
         }
+
+        public bool Equals(BilgingBoard other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (WaterLevel != other.WaterLevel)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < BoardWidth * BoardHeight; i++)
+            {
+                if (this[i] != other[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((BilgingBoard)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 613 ^ WaterLevel;
+
+            for (int i = 0; i < BoardWidth * BoardHeight; i++)
+            {
+                hash ^= this[i].GetHashCode();
+            }
+
+            return hash;
+        }
+
+        public static bool operator ==(BilgingBoard b1, BilgingBoard b2) => b1.Equals(b2);
+
+        public static bool operator !=(BilgingBoard b1, BilgingBoard b2) => !b1.Equals(b2);
     }
 }

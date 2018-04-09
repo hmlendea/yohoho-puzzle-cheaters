@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
-
-using NuciXNA.Primitives;
+using System.Threading.Tasks;
 
 using YohohoPuzzleCheaters.Cheats.Bilging.Entities;
 using YohohoPuzzleCheaters.Common.Windows;
@@ -33,25 +33,26 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             {
                 while (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
                 {
-                    gameBoard = RetrieveBoard();
-                    CalculateMove();
+                    BilgingBoard board = RetrieveBoard();
+
+                    if (gameBoard != board)
+                    {
+                        gameBoard = board;
+                        CalculateMove();
+                    }
                 }
             }).Start();
         }
 
         public BilgingPiece GetPiece(int x, int y) => gameBoard[x, y];
 
-        public bool IsBoardComplete()
-        {
-            return gameBoard.UnknownPieces == 0 &&
-                   gameBoard.EmptyPiecesCount == 0;
-        }
+        public bool IsBoardComplete() => !gameBoard.ContainsUnknownPieces && gameBoard.EmptyPiecesCount == 0;
 
         public BilgingMove GetBestTarget()
         {
             if (bestMove == null)
             {
-                return new BilgingMove();
+                return BilgingMove.InvalidMove;
             }
 
             return bestMove;
@@ -60,14 +61,14 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
         /// <summary>
         /// Shifts all empty cells to the bottom of the board
         /// </summary>
-        bool Shift(ref BilgingBoard board)
+        bool Shift(BilgingBoard board)
         {
-            bool hasShifted = false;
-
             if (board.EmptyPiecesCount == 0)
             {
                 return false;
             }
+
+            bool hasShifted = false;
 
             for (int j = 0; j < BilgingBoard.BoardWidth; j++)
             {
@@ -110,7 +111,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             return hasShifted;
         }
 
-        int ClearCrabs(ref BilgingBoard board)
+        int ClearCrabs(BilgingBoard board)
         {
             if (gameBoard.CrabsCount == 0)
             {
@@ -134,9 +135,9 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 }
             }
 
-            if (Shift(ref board))
+            if (Shift(board))
             {
-                crabsReleased += ClearCrabs(ref board);
+                crabsReleased += ClearCrabs(board);
             }
 
             return crabsReleased;
@@ -202,18 +203,18 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 }
             }
 
-            if (Shift(ref nextGeneration))
+            if (Shift(nextGeneration))
             {
-                int crabsScore = ClearCrabs(ref nextGeneration) * 2;
+                int crabsScore = ClearCrabs(nextGeneration) * 2;
                 crabsScore *= crabsScore;
                 clears += crabsScore;
 
-                int totalClears = CountClears(ref nextGeneration);
+                int totalClears = nextGeneration.EmptyPiecesCount;
                 int currentClears = totalClears - previousClears;
 
                 clears += currentClears * currentClears;
 
-                // recursive case, if board was shifte -> check for combos again. note: ignoring crab combos
+                // recursive case, if board was shifted -> check for combos again. note: ignoring crab combos
                 ClearAll(ref nextGeneration, totalClears);
             }
 
@@ -222,29 +223,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             return clears;
         }
 
-        int CountClears(ref BilgingBoard board)
-        {
-            return board.EmptyPiecesCount;
-
-            int clears = 0;
-
-            // Assume all empty cells should be at the bottom,
-            // so exploit this to reduce complexity
-            for (int i = 0; i < BilgingBoard.BoardWidth; i++)
-            {
-                int j = BilgingBoard.BoardHeight - 1; // Starting from the bottom
-
-                while (j >= 0 && board[j * BilgingBoard.BoardWidth + i].Type == BilgingPieceType.Empty)
-                {
-                    clears += 1;
-                    j -= 1; // Move up
-                }
-            }
-
-            return clears;
-        }
-
-        void PerformPuffer(ref BilgingBoard board, int y, int x)
+        void PerformPufferfish(ref BilgingBoard board, int y, int x)
         {
             int iBegin = Math.Max(y - 1, 0);
             int iEnd = Math.Min(y + 1, BilgingBoard.BoardHeight - 1);
@@ -260,7 +239,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 }
             }
 
-            Shift(ref board);
+            Shift(board);
         }
 
         void PerformJellyFish(ref BilgingBoard board, int y, int x, int p)
@@ -276,7 +255,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 }
             }
 
-            Shift(ref board);
+            Shift(board);
         }
 
         /// <summary>
@@ -284,23 +263,22 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
         /// </summary>
         /// <returns>The moves.</returns>
         /// <param name="board">The game board.</param>
-        List<BilgingMove> GenerateMoves(ref BilgingBoard board)
+        List<BilgingMove> GenerateMoves(BilgingBoard board)
         {
             List<BilgingMove> moves = new List<BilgingMove>();
 
             for (int i = 0; i < BilgingBoard.BoardHeight; i++)
             {
-                // Only BoardWidth - 1 swaps possible per BoardHeight
+                // Only cols - 1 swaps are possible per row
                 for (int j = 0; j < BilgingBoard.BoardWidth - 1; j++)
                 {
                     BilgingMove move = new BilgingMove();
-                    move.Score = 0;
                     move.X = j;
                     move.Y = i;
 
                     moves.Add(move);
 
-                    // skipping duplicate puffer fish move
+                    // skipping duplicate pufferfish move
                     if (board[i * BilgingBoard.BoardWidth + j + 1].Type == BilgingPieceType.Pufferfish)
                     {
                         j += 1;
@@ -311,7 +289,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             return moves;
         }
 
-        BilgingBoard ApplyMove(ref BilgingBoard board, ref BilgingMove move, int previousClears)
+        BilgingBoard ApplyMove(BilgingBoard board, BilgingMove move, int previousClears)
         {
             BilgingBoard newBoard = board.CreateCopy();
 
@@ -320,34 +298,37 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
 
             int index = y * BilgingBoard.BoardWidth + x;
 
-            BilgingPiece piece1 = newBoard[index];
-            BilgingPiece piece2 = newBoard[index + 1];
+            BilgingPiece piece0 = newBoard[index];
+            BilgingPiece piece1 = newBoard[index + 1];
 
+            // In this cases we cannot perform any action in this spot
+            if ((piece0.Type == BilgingPieceType.Crab && piece1.Type != BilgingPieceType.Pufferfish) ||
+                (piece1.Type == BilgingPieceType.Crab && piece0.Type != BilgingPieceType.Pufferfish))
+            {
+                return newBoard;
+            }
 
-            if (piece1.Type == BilgingPieceType.Movable &&
-                piece2.Type == BilgingPieceType.Movable)
+            if (piece0.Type == BilgingPieceType.Movable && piece1.Type == BilgingPieceType.Movable)
             {
                 PerformSwap(ref newBoard, y, x);
                 move.Score += ClearAll(ref newBoard, previousClears);
             }
+            else if (piece0.Type == BilgingPieceType.Pufferfish)
+            {
+                PerformPufferfish(ref newBoard, y, x);
+                ClearAll(ref newBoard, previousClears);
+            }
             else if (piece1.Type == BilgingPieceType.Pufferfish)
             {
-                PerformPuffer(ref newBoard, y, x);
+                PerformPufferfish(ref newBoard, y, x + 1);
                 ClearAll(ref newBoard, previousClears);
             }
-            else if (piece2.Type == BilgingPieceType.Pufferfish)
-            {
-                PerformPuffer(ref newBoard, y, x + 1);
-                ClearAll(ref newBoard, previousClears);
-            }
-            else if (piece1.Type == BilgingPieceType.Jellyfish &&
-                     piece2.Type == BilgingPieceType.Movable)
+            else if (piece0.Type == BilgingPieceType.Jellyfish && piece1.Type == BilgingPieceType.Movable)
             {
                 PerformJellyFish(ref newBoard, y, x, x + 1);
                 ClearAll(ref newBoard, previousClears);
             }
-            else if (piece2.Type == BilgingPieceType.Jellyfish &&
-                     piece1.Type == BilgingPieceType.Movable)
+            else if (piece1.Type == BilgingPieceType.Jellyfish && piece0.Type == BilgingPieceType.Movable)
             {
                 PerformJellyFish(ref newBoard, y, x + 1, x);
                 ClearAll(ref newBoard, previousClears);
@@ -356,17 +337,16 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             return newBoard;
         }
 
-        BilgingMove Search(ref BilgingBoard board, int searchDepth, int previousClears)
+        BilgingMove Search(BilgingBoard board, int searchDepth)
         {
-            List<BilgingMove> candidates = GenerateMoves(ref board);
-            BilgingMove winner = new BilgingMove();
+            ConcurrentBag<BilgingMove> candidates = new ConcurrentBag<BilgingMove>(GenerateMoves(board));
 
-            for (int i = 0; i < candidates.Count; i++)
+            ParallelOptions parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = 8 };
+
+            Parallel.ForEach(candidates, parallelOptions, candidate =>
             {
-                BilgingMove candidate = candidates[i];
-
                 // applies and adds clears to moves[i].Score
-                BilgingBoard newBoard = ApplyMove(ref board, ref candidate, previousClears);
+                BilgingBoard newBoard = ApplyMove(board, candidate, 0);
 
                 // force combo moves before useless ones
                 if (candidate.Score > 0)
@@ -377,10 +357,49 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 // recursive case
                 if (searchDepth > 1)
                 {
-                    candidate.Score += Search(ref newBoard, searchDepth - 1, CountClears(ref newBoard)).Score;
+                    candidate.Score += Search(newBoard, searchDepth - 1, newBoard.EmptyPiecesCount).Score;
+                }
+            });
+
+            BilgingMove winner = new BilgingMove();
+            winner.Score = -1;
+
+            foreach (BilgingMove candidate in candidates)
+            {
+                if (candidate.Score > winner.Score)
+                {
+                    winner = candidate;
+                }
+            }
+
+            return winner;
+        }
+
+        BilgingMove Search(BilgingBoard board, int searchDepth, int previousClears)
+        {
+            List<BilgingMove> candidates = GenerateMoves(board);
+
+            BilgingMove winner = new BilgingMove();
+            winner.Score = -1;
+
+            // TODO: Consider paralelization
+            foreach (BilgingMove candidate in candidates)
+            {
+                // applies and adds clears to moves[i].Score
+                BilgingBoard newBoard = ApplyMove(board, candidate, previousClears);
+
+                // force combo moves before useless ones
+                if (candidate.Score > 0)
+                {
+                    candidate.Score += searchDepth;
                 }
 
-                // update bestMove
+                // recursive case
+                if (searchDepth > 1)
+                {
+                    candidate.Score += Search(newBoard, searchDepth - 1, newBoard.EmptyPiecesCount).Score;
+                }
+
                 if (candidate.Score > winner.Score)
                 {
                     winner = candidate;
@@ -392,13 +411,13 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
 
         void CalculateMove()
         {
-            if (gameBoard.UnknownPieces > 0 || gameBoard.EmptyPiecesCount > 0)
+            if (!IsBoardComplete())
             {
                 bestMove = null;
                 return;
             }
 
-            bestMove = Search(ref gameBoard, 2, 0);
+            bestMove = Search(gameBoard, 3);
         }
 
         void PerformSwap(ref BilgingBoard board, int y, int x)
@@ -461,10 +480,20 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                     {
                         board[x, y] = BilgingPiece.OctogonLight;
                     }
+                    else if (pixel22x22.R == 007 && pixel22x22.G == 122 && pixel22x22.B == 235 ||
+                             pixel22x22.R == 003 && pixel22x22.G == 094 && pixel22x22.B == 192)
+                    {
+                        board[x, y] = BilgingPiece.PentagonDark;
+                    }
                     else if (pixel22x22.R == 250 && pixel22x22.G == 242 && pixel22x22.B == 068 ||
                              pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 125)
                     {
                         board[x, y] = BilgingPiece.Pufferfish;
+                    }
+                    else if (pixel22x22.R == 000 && pixel22x22.G == 255 && pixel22x22.B == 232 ||
+                             pixel22x22.R == 000 && pixel22x22.G == 147 && pixel22x22.B == 191)
+                    {
+                        board[x, y] = BilgingPiece.Jellyfish;
                     }
                     else if (pixel22x22.R == 026 && pixel22x22.G == 071 && pixel22x22.B == 124)
                     {

@@ -86,7 +86,7 @@ namespace YohohoPuzzleCheaters
             fpsIndicator.LoadContent();
             cursor.LoadContent();
 
-            windowReaderUpdateTimer.Interval = 500;
+            windowReaderUpdateTimer.Interval = 100;
             windowReaderUpdateTimer.Elapsed += delegate { WindowManager.Instance.Update(0); };
             windowReaderUpdateTimer.Start();
         }
