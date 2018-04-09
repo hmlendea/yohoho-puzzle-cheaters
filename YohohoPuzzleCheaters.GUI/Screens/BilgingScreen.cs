@@ -6,7 +6,7 @@ using NuciXNA.Gui.Screens;
 using NuciXNA.Primitives;
 
 using YohohoPuzzleCheaters.Cheats.Bilging;
-using YohohoPuzzleCheaters.Models;
+using YohohoPuzzleCheaters.Cheats.Bilging.Entities;
 
 namespace YohohoPuzzleCheaters.GUI.Screens
 {
@@ -17,8 +17,8 @@ namespace YohohoPuzzleCheaters.GUI.Screens
     {
         readonly BilgingCheat bilgingCheat;
 
-        Sprite piece;
-        Sprite target;
+        Sprite pieceSprite;
+        Sprite targetSprite;
 
         public BilgingScreen()
         {
@@ -27,11 +27,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
         public override void LoadContent()
         {
-            piece = new Sprite
+            pieceSprite = new Sprite
             {
                 ContentFile = "Cheats/Bilging/pieces"
             };
-            target = new Sprite
+            targetSprite = new Sprite
             {
                 ContentFile = "ScreenManager/FillImage",
                 Tint = Colour.Red,
@@ -40,8 +40,8 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             };
 
             bilgingCheat.LoadContent();
-            piece.LoadContent();
-            target.LoadContent();
+            pieceSprite.LoadContent();
+            targetSprite.LoadContent();
 
             base.LoadContent();
         }
@@ -49,8 +49,8 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         public override void UnloadContent()
         {
             bilgingCheat.UnloadContent();
-            piece.UnloadContent();
-            target.UnloadContent();
+            pieceSprite.UnloadContent();
+            targetSprite.UnloadContent();
 
             base.UnloadContent();
         }
@@ -58,8 +58,8 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         public override void Update(GameTime gameTime)
         {
             bilgingCheat.Update(gameTime.ElapsedGameTime.TotalMilliseconds);
-            piece.Update(gameTime);
-            target.Update(gameTime);
+            pieceSprite.Update(gameTime);
+            targetSprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -82,21 +82,21 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             {
                 for (int x = 0; x < BilgingCheat.TableColumns; x++)
                 {
-                    int pieceId = bilgingCheat.GetPiece(x, y);
+                    BilgingPieceType piece = bilgingCheat.GetPiece(x, y);
 
-                    if (pieceId == (int)BilgingPiece.Unknown)
+                    if (piece == BilgingPieceType.Unknown)
                     {
                         continue;
                     }
 
-                    piece.SourceRectangle = new Rectangle2D(
-                        (pieceId - 1) * BilgingCheat.PieceSize, 0,
+                    pieceSprite.SourceRectangle = new Rectangle2D(
+                        ((int)piece - 1) * BilgingCheat.PieceSize, 0,
                         BilgingCheat.PieceSize, BilgingCheat.PieceSize);
-                    piece.Location = new Point2D(
+                    pieceSprite.Location = new Point2D(
                         x * BilgingCheat.PieceSize,
                         y * BilgingCheat.PieceSize);
 
-                    piece.Draw(spriteBatch);
+                    pieceSprite.Draw(spriteBatch);
                 }
             }
         }
@@ -105,11 +105,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         {
             BilgingResult bestTarget = bilgingCheat.GetBestTarget();
 
-            target.Location = new Point2D(
+            targetSprite.Location = new Point2D(
                 bestTarget.Selection1.X * BilgingCheat.PieceSize + BilgingCheat.PieceSize / 2,
                 bestTarget.Selection1.Y * BilgingCheat.PieceSize);
 
-            target.Draw(spriteBatch);
+            targetSprite.Draw(spriteBatch);
         }
     }
 }

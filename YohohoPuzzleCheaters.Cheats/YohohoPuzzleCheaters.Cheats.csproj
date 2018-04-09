@@ -45,14 +45,19 @@
     <Compile Include="TreasureDrop\Entities\TdHashTableEntry.cs" />
     <Compile Include="TreasureDrop\Entities\GameIdentifier.cs" />
     <Compile Include="TreasureDrop\Entities\TdHashTable.cs" />
-    <Compile Include="Bilging\BilgingPiece.cs" />
     <Compile Include="Bilging\BilgingCheat.cs" />
+    <Compile Include="Bilging\Entities\BilgingBoard.cs" />
+    <Compile Include="Bilging\Entities\BilgingMove.cs" />
+    <Compile Include="Bilging\Entities\BilgingPieceType.cs" />
+    <Compile Include="Bilging\Entities\BilgingPiece.cs" />
+    <Compile Include="Bilging\Entities\BilgingResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />
     <Folder Include="TreasureDrop\Enumerations\" />
     <Folder Include="TreasureDrop\Entities\" />
     <Folder Include="Bilging\" />
+    <Folder Include="Bilging\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YohohoPuzzleCheaters.Common\YohohoPuzzleCheaters.Common.csproj">

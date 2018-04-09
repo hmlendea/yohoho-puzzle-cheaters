@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 using NuciXNA.Primitives;
 
+using YohohoPuzzleCheaters.Cheats.Bilging.Entities;
 using YohohoPuzzleCheaters.Common.Windows;
-using YohohoPuzzleCheaters.Models;
 
 namespace YohohoPuzzleCheaters.Cheats.Bilging
 {
@@ -18,89 +17,26 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
         public const int TableRows = 12;
         public const int PieceSize = 45;
 
-        int[,] table;
+        BilgingBoard board;
 
         public void LoadContent()
         {
-            table = new int[TableColumns, TableRows];
+            board = new BilgingBoard();
         }
 
         public void UnloadContent()
         {
-            table = null;
+            board = null;
         }
 
         public void Update(double elapsedTime)
         {
-            for (int y = 0; y < TableRows; y++)
-            {
-                for (int x = 0; x < TableColumns; x++)
-                {
-                    int pieceX = TablePosX + x * PieceSize;
-                    int pieceY = TablePosY + y * PieceSize;
-
-                    Color pixel22x22 = WindowManager.Instance.GetPixel(pieceX + 22, pieceY + 22);
-
-                    if (pixel22x22.R == 025 && pixel22x22.G == 136 && pixel22x22.B == 202 ||
-                        pixel22x22.R == 010 && pixel22x22.G == 099 && pixel22x22.B == 179)
-                    {
-                        table[x, y] = (int)BilgingPiece.SquareDark;
-                    }
-                    else if (pixel22x22.R == 004 && pixel22x22.G == 220 && pixel22x22.B == 204 ||
-                             pixel22x22.R == 002 && pixel22x22.G == 133 && pixel22x22.B == 180)
-                    {
-                        table[x, y] = (int)BilgingPiece.SquareLight;
-                    }
-                    else if (pixel22x22.R == 025 && pixel22x22.G == 200 && pixel22x22.B == 243 ||
-                             pixel22x22.R == 010 && pixel22x22.G == 125 && pixel22x22.B == 195)
-                    {
-                        table[x, y] = (int)BilgingPiece.CircleDark;
-                    }
-                    else if (pixel22x22.R == 136 && pixel22x22.G == 226 && pixel22x22.B == 197 ||
-                             pixel22x22.R == 054 && pixel22x22.G == 135 && pixel22x22.B == 177)
-                    {
-                        table[x, y] = (int)BilgingPiece.CircleLight;
-                    }
-                    else if (pixel22x22.R == 059 && pixel22x22.G == 135 && pixel22x22.B == 150 ||
-                             pixel22x22.R == 024 && pixel22x22.G == 099 && pixel22x22.B == 158)
-                    {
-                        table[x, y] = (int)BilgingPiece.OctogonDark;
-                    }
-                    else if (pixel22x22.R == 087 && pixel22x22.G == 189 && pixel22x22.B == 245 ||
-                             pixel22x22.R == 035 && pixel22x22.G == 121 && pixel22x22.B == 196)
-                    {
-                        table[x, y] = (int)BilgingPiece.OctogonLight;
-                    }
-                    else if (pixel22x22.R == 250 && pixel22x22.G == 242 && pixel22x22.B == 068 ||
-                             pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 125)
-                    {
-                        table[x, y] = (int)BilgingPiece.BlowFish;
-                    }
-                    else
-                    {
-                        table[x, y] = (int)BilgingPiece.Unknown;
-                    }
-                }
-            }
+            RetrieveTable();
         }
 
-        public int GetPiece(int x, int y) => table[x, y];
+        public BilgingPieceType GetPiece(int x, int y) => board[x, y];
 
-        public bool ContainsUnknownPieces()
-        {
-            for (int y = 0; y < TableRows; y++)
-            {
-                for (int x = 0; x < TableColumns; x++)
-                {
-                    if (table[x, y] == 0)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
+        public bool ContainsUnknownPieces() => board.ContainsUnknownPieces();
 
         public BilgingResult GetBestTarget()
         {
@@ -114,7 +50,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 }
             }
 
-            return CreateNonSuccessResult();
+            return BilgingResult.InvalidResult;
         }
 
         BilgingResult GetTargetForPattern(int[][] pattern)
@@ -139,7 +75,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                         {
                             if (pattern[patY][patX] == 1 || pattern[patY][patX] == 3)
                             {
-                                pieces.Add(table[x + patX, y + patY]);
+                                pieces.Add((int)board[x + patX, y + patY]);
                             }
 
                             if (pattern[patY][patX] == 2)
@@ -178,16 +114,61 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 }
             }
 
-            return CreateNonSuccessResult();
+            return BilgingResult.InvalidResult;
         }
 
-        BilgingResult CreateNonSuccessResult()
+        void RetrieveTable()
         {
-            return new BilgingResult
+            for (int y = 0; y < TableRows; y++)
             {
-                Selection1 = new Point2D(-1, -1),
-                Selection2 = new Point2D(-1, -1)
-            };
+                for (int x = 0; x < TableColumns; x++)
+                {
+                    int pieceX = TablePosX + x * PieceSize;
+                    int pieceY = TablePosY + y * PieceSize;
+
+                    Color pixel22x22 = WindowManager.Instance.GetPixel(pieceX + 22, pieceY + 22);
+
+                    if (pixel22x22.R == 025 && pixel22x22.G == 136 && pixel22x22.B == 202 ||
+                        pixel22x22.R == 010 && pixel22x22.G == 099 && pixel22x22.B == 179)
+                    {
+                        board[x, y] = BilgingPieceType.SquareDark;
+                    }
+                    else if (pixel22x22.R == 004 && pixel22x22.G == 220 && pixel22x22.B == 204 ||
+                             pixel22x22.R == 002 && pixel22x22.G == 133 && pixel22x22.B == 180)
+                    {
+                        board[x, y] = BilgingPieceType.SquareLight;
+                    }
+                    else if (pixel22x22.R == 025 && pixel22x22.G == 200 && pixel22x22.B == 243 ||
+                             pixel22x22.R == 010 && pixel22x22.G == 125 && pixel22x22.B == 195)
+                    {
+                        board[x, y] = BilgingPieceType.CircleDark;
+                    }
+                    else if (pixel22x22.R == 136 && pixel22x22.G == 226 && pixel22x22.B == 197 ||
+                             pixel22x22.R == 054 && pixel22x22.G == 135 && pixel22x22.B == 177)
+                    {
+                        board[x, y] = BilgingPieceType.CircleLight;
+                    }
+                    else if (pixel22x22.R == 059 && pixel22x22.G == 135 && pixel22x22.B == 150 ||
+                             pixel22x22.R == 024 && pixel22x22.G == 099 && pixel22x22.B == 158)
+                    {
+                        board[x, y] = BilgingPieceType.OctogonDark;
+                    }
+                    else if (pixel22x22.R == 087 && pixel22x22.G == 189 && pixel22x22.B == 245 ||
+                             pixel22x22.R == 035 && pixel22x22.G == 121 && pixel22x22.B == 196)
+                    {
+                        board[x, y] = BilgingPieceType.OctogonLight;
+                    }
+                    else if (pixel22x22.R == 250 && pixel22x22.G == 242 && pixel22x22.B == 068 ||
+                             pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 125)
+                    {
+                        board[x, y] = BilgingPieceType.Pufferfish;
+                    }
+                    else
+                    {
+                        board[x, y] = BilgingPieceType.Unknown;
+                    }
+                }
+            }
         }
 
         // TODO: Refactor this. It literally gives me nightmares

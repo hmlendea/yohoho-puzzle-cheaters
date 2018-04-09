@@ -1,6 +1,6 @@
-﻿namespace YohohoPuzzleCheaters.Cheats.Bilging
+﻿namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
 {
-    public enum BilgingPiece
+    public enum BilgingPieceType
     {
         Unknown,
         SquareDark,
@@ -10,6 +10,8 @@
         OctogonDark,
         OctogonLight,
         PentagonDark,
-        BlowFish
+        Pufferfish,
+        Jellyfish,
+        Crab
     }
 }
