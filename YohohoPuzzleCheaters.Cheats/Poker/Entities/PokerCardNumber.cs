@@ -2,6 +2,7 @@
 {
     public enum PokerCardNumber
     {
+        Unknown,
         Two,
         Three,
         Four,

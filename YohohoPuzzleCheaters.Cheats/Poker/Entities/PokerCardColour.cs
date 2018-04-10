@@ -2,9 +2,10 @@
 {
     public enum PokerCardColour
     {
+        Unknown,
+        Spades,
         Hearts,
-        Diamonds,
         Clubs,
-        Spades
+        Diamonds
     }
 }

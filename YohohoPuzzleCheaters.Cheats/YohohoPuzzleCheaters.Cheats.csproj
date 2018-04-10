@@ -55,6 +55,7 @@
     <Compile Include="Poker\Entities\PokerCard.cs" />
     <Compile Include="Poker\Entities\PokerBoard.cs" />
     <Compile Include="Poker\PokerCheat.cs" />
+    <Compile Include="Poker\PokerBoardReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />

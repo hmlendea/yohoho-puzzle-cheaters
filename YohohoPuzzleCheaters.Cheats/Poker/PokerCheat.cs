@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 using YohohoPuzzleCheaters.Cheats.Poker.Entities;
 using YohohoPuzzleCheaters.Common.Windows;
@@ -7,23 +9,25 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 {
     public class PokerCheat
     {
+        readonly PokerBoardReader boardReader;
+
         PokerBoard gameBoard;
 
         public PokerCheat()
         {
+            boardReader = new PokerBoardReader();
             gameBoard = new PokerBoard();
-
         }
 
         public void Start()
         {
             new Thread(() =>
             {
-                while (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
+                while (WindowManager.Instance.CurrentScreen == ScreenType.PokerScreen)
                 {
-                    PokerBoard board = RetrieveBoard();
+                    PokerBoard board = boardReader.ReadBoard();
 
-                    if (gameBoard != board)
+                    if (board != null && gameBoard != board)
                     {
                         gameBoard = board;
                     }
@@ -31,12 +35,8 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
             }).Start();
         }
 
-        PokerBoard RetrieveBoard()
-        {
-            PokerBoard board = new PokerBoard();
+        public List<PokerCard> GetHand() => gameBoard.Hand;
 
-
-            return board;
-        }
+        public List<PokerCard> GetDeck() => gameBoard.Deck;
     }
 }
