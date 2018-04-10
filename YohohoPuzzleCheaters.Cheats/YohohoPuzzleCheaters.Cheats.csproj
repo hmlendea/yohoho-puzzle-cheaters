@@ -50,6 +50,11 @@
     <Compile Include="Bilging\Entities\BilgingMove.cs" />
     <Compile Include="Bilging\Entities\BilgingPiece.cs" />
     <Compile Include="Bilging\Entities\BilgingPieceType.cs" />
+    <Compile Include="Poker\Entities\PokerCardColour.cs" />
+    <Compile Include="Poker\Entities\PokerCardNumber.cs" />
+    <Compile Include="Poker\Entities\PokerCard.cs" />
+    <Compile Include="Poker\Entities\PokerBoard.cs" />
+    <Compile Include="Poker\PokerCheat.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />
@@ -57,6 +62,8 @@
     <Folder Include="TreasureDrop\Entities\" />
     <Folder Include="Bilging\" />
     <Folder Include="Bilging\Entities\" />
+    <Folder Include="Poker\" />
+    <Folder Include="Poker\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YohohoPuzzleCheaters.Common\YohohoPuzzleCheaters.Common.csproj">

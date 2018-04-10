@@ -71,19 +71,24 @@ namespace YohohoPuzzleCheaters.Common.Windows
 
         void CalculateCurrentScreen()
         {
-            Color clr000x000 = GetPixel(0, 0);
-            Color clr449x000 = GetPixel(449, 0);
-            Color clr191x009 = GetPixel(191, 9);
-            Color clr234x025 = GetPixel(234, 25);
-            Color clr367x015 = GetPixel(367, 15);
+            Color clr000x000 = GetPixel(000, 000);
+            Color clr025x025 = GetPixel(025, 025);
+            Color clr449x000 = GetPixel(449, 000);
+            Color clr424x025 = GetPixel(424, 025);
 
             if (clr000x000.R == 141 && clr000x000.G == 116 && clr000x000.B == 070 &&
+                clr025x025.R == 105 && clr025x025.G == 081 && clr025x025.B == 041 &&
                 clr449x000.R == 105 && clr449x000.G == 081 && clr449x000.B == 041 &&
-                clr191x009.R == 033 && clr191x009.G == 151 && clr191x009.B == 197 &&
-                clr234x025.R == 223 && clr234x025.G == 208 && clr234x025.B == 137 &&
-                clr367x015.R == 133 && clr367x015.G == 089 && clr367x015.B == 037)
+                clr424x025.R == 141 && clr424x025.G == 086 && clr424x025.B == 022)
             {
                 CurrentScreen = ScreenType.BilgingScreen;
+            }
+            else if (clr000x000.R == 170 && clr000x000.G == 115 && clr000x000.B == 056 &&
+                     clr025x025.R == 122 && clr025x025.G == 080 && clr025x025.B == 040 &&
+                     clr449x000.R == 170 && clr449x000.G == 115 && clr449x000.B == 056 &&
+                     clr424x025.R == 130 && clr424x025.G == 085 && clr424x025.B == 043)
+            {
+                CurrentScreen = ScreenType.PokerScreen;
             }
             else
             {

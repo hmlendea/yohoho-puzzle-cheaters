@@ -3,6 +3,7 @@
     public enum ScreenType
     {
         UnknownScreen,
-        BilgingScreen
+        BilgingScreen,
+        PokerScreen
     }
 }

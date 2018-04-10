@@ -57,6 +57,7 @@
     <Compile Include="Screens\UnknownScreen.cs" />
     <Compile Include="FakeCursor.cs" />
     <Compile Include="Screens\BilgingScreen.cs" />
+    <Compile Include="Screens\PokerScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

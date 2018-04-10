@@ -131,6 +131,12 @@ namespace YohohoPuzzleCheaters
 
                 ChangeScreens(typeof(BilgingScreen));
             }
+            else if (WindowManager.Instance.CurrentScreen == ScreenType.PokerScreen)
+            {
+                cursor.ReferenceLocation = Point2D.Empty;
+
+                ChangeScreens(typeof(PokerScreen));
+            }
             else
             {
                 cursor.ReferenceLocation = Point2D.Empty;
