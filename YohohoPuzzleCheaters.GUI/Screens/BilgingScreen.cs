@@ -22,6 +22,8 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
         public BilgingScreen()
         {
+            BackgroundColour = Colour.CornflowerBlue;
+
             bilgingCheat = new BilgingCheat();
         }
 
