@@ -69,7 +69,9 @@ namespace YohohoPuzzleCheaters
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            WindowManager.Instance.WindowLocation = new Point2D(278, 95);
+            SettingsManager.Instance.LoadContent();
+
+            WindowManager.Instance.WindowLocation = SettingsManager.Instance.GameWindowLocation;
             WindowManager.Instance.WindowSize = new Size2D(810, 604);
             WindowManager.Instance.LoadContent();
 
@@ -77,7 +79,6 @@ namespace YohohoPuzzleCheaters
             GraphicsManager.Instance.Graphics = graphics;
 
             ResourceManager.Instance.LoadContent(Content, GraphicsDevice);
-            SettingsManager.Instance.LoadContent();
 
             ScreenManager.Instance.SpriteBatch = spriteBatch;
             ScreenManager.Instance.StartingScreenType = typeof(UnknownScreen);
@@ -133,13 +134,13 @@ namespace YohohoPuzzleCheaters
             }
             else if (WindowManager.Instance.CurrentScreen == ScreenType.PokerScreen)
             {
-                cursor.ReferenceLocation = Point2D.Empty;
+                cursor.ReferenceLocation = SettingsManager.Instance.GraphicsSettings.WindowLocation;
 
                 ChangeScreens(typeof(PokerScreen));
             }
             else
             {
-                cursor.ReferenceLocation = Point2D.Empty;
+                cursor.ReferenceLocation = SettingsManager.Instance.GraphicsSettings.WindowLocation;
 
                 ChangeScreens(typeof(UnknownScreen));
             }

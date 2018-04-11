@@ -107,6 +107,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         {
             BilgingMove bestMove = bilgingCheat.GetBestTarget();
 
+            if (bestMove == null)
+            {
+                return;
+            }
+
             targetSprite.Location = new Point2D(
                 bestMove.X * PieceSize + PieceSize / 2,
                 bestMove.Y * PieceSize);

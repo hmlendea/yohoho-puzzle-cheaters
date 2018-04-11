@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using YohohoPuzzleCheaters.Cheats.Bilging.Entities;
+using YohohoPuzzleCheaters.Settings;
 
 namespace YohohoPuzzleCheaters.Cheats.Bilging
 {
@@ -18,7 +19,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 return BilgingMove.InvalidMove;
             }
 
-            return Search(board, 3);
+            return Search(board, SettingsManager.Instance.CheatSettings.BilgingRecursivityDepth);
         }
 
         /// <summary>
@@ -304,7 +305,10 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
         {
             ConcurrentBag<BilgingMove> candidates = new ConcurrentBag<BilgingMove>(GenerateMoves(board));
 
-            ParallelOptions parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = 8 };
+            ParallelOptions parallelOptions = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = SettingsManager.Instance.CheatSettings.BilgingThreadsToUse
+            };
 
             Parallel.ForEach(candidates, parallelOptions, candidate =>
             {

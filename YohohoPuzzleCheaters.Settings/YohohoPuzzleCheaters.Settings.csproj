@@ -48,6 +48,7 @@
     <Compile Include="GraphicsSettings.cs" />
     <Compile Include="AudioSettings.cs" />
     <Compile Include="ApplicationPaths.cs" />
+    <Compile Include="CheatSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

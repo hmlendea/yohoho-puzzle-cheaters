@@ -2,6 +2,7 @@
 
 using NuciXNA.DataAccess.IO;
 using NuciXNA.Graphics;
+using NuciXNA.Primitives;
 
 namespace YohohoPuzzleCheaters.Settings
 {
@@ -40,6 +41,10 @@ namespace YohohoPuzzleCheaters.Settings
 
         public GraphicsSettings GraphicsSettings { get; set; }
 
+        public CheatSettings CheatSettings { get; set; }
+
+        public Point2D GameWindowLocation { get; set; }
+
         /// <summary>
         /// Gets or sets the debug mode.
         /// </summary>
@@ -53,6 +58,9 @@ namespace YohohoPuzzleCheaters.Settings
         {
             AudioSettings = new AudioSettings();
             GraphicsSettings = new GraphicsSettings();
+            CheatSettings = new CheatSettings();
+
+            GameWindowLocation = new Point2D(283, 93);
         }
 
         /// <summary>
