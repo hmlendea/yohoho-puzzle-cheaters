@@ -6,13 +6,13 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
 {
     public class PokerBoard : IEquatable<PokerBoard>
     {
-        public List<PokerCard> Hand { get; set; }
+        public List<PokerCard> Pocket { get; set; }
 
         public List<PokerCard> Deck { get; set; }
 
         public PokerBoard()
         {
-            Hand = new List<PokerCard>();
+            Pocket = new List<PokerCard>();
             Deck = new List<PokerCard>();
         }
 
@@ -28,7 +28,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
                 return true;
             }
 
-            if (Hand.Count != other.Hand.Count ||
+            if (Pocket.Count != other.Pocket.Count ||
                 Deck.Count != other.Deck.Count)
             {
                 return false;
@@ -36,7 +36,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
 
             // TODO: The following checks might not be ok
 
-            if (!Hand.All(other.Hand.Contains))
+            if (!Pocket.All(other.Pocket.Contains))
             {
                 return false;
             }
@@ -73,14 +73,14 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
         {
             int hash = 613;
 
-            foreach (PokerCard card in Hand)
+            foreach (PokerCard card in Pocket)
             {
-                hash ^= (int)card.Number ^ (int)card.Colour;
+                hash ^= card.Number.GetHashCode() ^ card.Colour.GetHashCode();
             }
 
             foreach (PokerCard card in Deck)
             {
-                hash ^= (int)card.Number ^ (int)card.Colour;
+                hash ^= card.Number.GetHashCode() ^ card.Colour.GetHashCode();
             }
 
             return hash;

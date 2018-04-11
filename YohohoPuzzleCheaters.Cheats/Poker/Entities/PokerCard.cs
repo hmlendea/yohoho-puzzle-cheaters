@@ -11,5 +11,15 @@
             Number = number;
             Colour = colour;
         }
+
+        public override string ToString()
+        {
+            string str = string.Empty;
+
+            str += Number.ToString();
+            str += Colour.ToString();
+
+            return str;
+        }
     }
 }

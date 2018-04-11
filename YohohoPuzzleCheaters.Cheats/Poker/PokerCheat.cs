@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 
 using YohohoPuzzleCheaters.Cheats.Poker.Entities;
@@ -30,13 +29,19 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                     if (board != null && gameBoard != board)
                     {
                         gameBoard = board;
+                        CalculateOdds();
                     }
                 }
             }).Start();
         }
 
-        public List<PokerCard> GetHand() => gameBoard.Hand;
+        public List<PokerCard> GetHand() => gameBoard.Pocket;
 
         public List<PokerCard> GetDeck() => gameBoard.Deck;
+
+        void CalculateOdds()
+        {
+
+        }
     }
 }

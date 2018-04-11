@@ -24,7 +24,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
             }
 
             PokerBoard board = new PokerBoard();
-            board.Hand = ReadPlayerCards();
+            board.Pocket = ReadPlayerCards();
             board.Deck = ReadDeckCards();
 
             return board;
