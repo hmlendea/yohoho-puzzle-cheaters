@@ -53,13 +53,15 @@
     <Compile Include="Bilging\Entities\BilgingMove.cs" />
     <Compile Include="Bilging\Entities\BilgingPiece.cs" />
     <Compile Include="Bilging\Entities\BilgingPieceType.cs" />
-    <Compile Include="Poker\Entities\PokerCardColour.cs" />
-    <Compile Include="Poker\Entities\PokerCardNumber.cs" />
+    <Compile Include="Poker\Entities\PokerCardSuit.cs" />
+    <Compile Include="Poker\Entities\PokerCardRank.cs" />
     <Compile Include="Poker\Entities\PokerCard.cs" />
     <Compile Include="Poker\Entities\PokerBoard.cs" />
     <Compile Include="Poker\PokerCheat.cs" />
     <Compile Include="Poker\PokerBoardReader.cs" />
     <Compile Include="Poker\Entities\PokerOdds.cs" />
+    <Compile Include="Bilging\BilgingBoardReader.cs" />
+    <Compile Include="Bilging\BilgingSolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />

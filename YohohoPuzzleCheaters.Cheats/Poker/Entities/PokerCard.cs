@@ -2,18 +2,18 @@
 {
     public class PokerCard
     {
-        public PokerCardNumber Number { get; }
+        public PokerCardRank Rank { get; }
 
-        public PokerCardColour Colour { get; }
+        public PokerCardSuit Suit { get; }
 
-        public string Code => $"{Number.CharCode}{Colour.CharCode}";
+        public string Code => $"{Rank.Identifier}{Suit.Identifier}";
 
-        public PokerCard(PokerCardNumber number, PokerCardColour colour)
+        public PokerCard(PokerCardRank rank, PokerCardSuit suit)
         {
-            Number = number;
-            Colour = colour;
+            Rank = rank;
+            Suit = suit;
         }
 
-        public override string ToString() => $"{Number.Description} of {Colour.Description}";
+        public override string ToString() => $"{Rank.Name} of {Suit.Name}";
     }
 }

@@ -75,12 +75,12 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
 
             foreach (PokerCard card in Pocket)
             {
-                hash ^= card.Number.GetHashCode() ^ card.Colour.GetHashCode();
+                hash ^= card.Rank.GetHashCode() ^ card.Suit.GetHashCode();
             }
 
             foreach (PokerCard card in Deck)
             {
-                hash ^= card.Number.GetHashCode() ^ card.Colour.GetHashCode();
+                hash ^= card.Rank.GetHashCode() ^ card.Suit.GetHashCode();
             }
 
             return hash;

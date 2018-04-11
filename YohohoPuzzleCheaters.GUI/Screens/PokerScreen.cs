@@ -78,12 +78,12 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
             foreach (PokerCard card in hand)
             {
-                handText.Text += $"{card.Number} of {card.Colour}{Environment.NewLine}";
+                handText.Text += $"{card.Rank} of {card.Suit}{Environment.NewLine}";
             }
 
             foreach (PokerCard card in deck)
             {
-                deckText.Text += $"{card.Number} of {card.Colour}{Environment.NewLine}";
+                deckText.Text += $"{card.Rank} of {card.Suit}{Environment.NewLine}";
             }
 
             oddsText.Text += $"HighC: {OddsToString(playerOdds.HighCard)} vs {OddsToString(opponentOdds.HighCard)}{Environment.NewLine}";

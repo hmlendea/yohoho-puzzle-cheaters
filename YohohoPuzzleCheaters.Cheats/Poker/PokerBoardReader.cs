@@ -74,13 +74,13 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
         public PokerCard ReadCard(int cardX, int cardY)
         {
-            PokerCardNumber cardNumber = ReadCardNumber(cardX, cardY);
-            PokerCardColour cardColour = ReadCardColour(cardX, cardY);
+            PokerCardRank rank = ReadCardRank(cardX, cardY);
+            PokerCardSuit suit = ReadCardSuit(cardX, cardY);
 
-            return new PokerCard(cardNumber, cardColour);
+            return new PokerCard(rank, suit);
         }
 
-        public PokerCardNumber ReadCardNumber(int cardX, int cardY)
+        public PokerCardRank ReadCardRank(int cardX, int cardY)
         {
             Color pixel05x04 = WindowManager.Instance.GetPixel(cardX + 05, cardY + 04);
             Color pixel08x06 = WindowManager.Instance.GetPixel(cardX + 08, cardY + 06);
@@ -90,7 +90,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
                  pixel08x06.R == 204 && pixel08x06.G == 060 && pixel08x06.B == 020))
             {
-                return PokerCardNumber.Ace;
+                return PokerCardRank.Ace;
             }
 
             if ((pixel05x04.R == 088 && pixel05x04.G == 087 && pixel05x04.B == 087 &&
@@ -98,7 +98,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 220 && pixel05x04.G == 119 && pixel05x04.B == 087 &&
                  pixel08x06.R == 212 && pixel08x06.G == 076 && pixel08x06.B == 036))
             {
-                return PokerCardNumber.King;
+                return PokerCardRank.King;
             }
 
             if ((pixel05x04.R == 060 && pixel05x04.G == 060 && pixel05x04.B == 060 &&
@@ -106,7 +106,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 214 && pixel05x04.G == 091 && pixel05x04.B == 053 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252))
             {
-                return PokerCardNumber.Queen;
+                return PokerCardRank.Queen;
             }
 
             if ((pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
@@ -114,7 +114,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
                  pixel08x06.R == 204 && pixel08x06.G == 052 && pixel08x06.B == 004))
             {
-                return PokerCardNumber.Jester;
+                return PokerCardRank.Jester;
             }
 
             if ((pixel05x04.R == 004 && pixel05x04.G == 004 && pixel05x04.B == 004 &&
@@ -122,7 +122,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 204 && pixel08x06.G == 052 && pixel08x06.B == 004 &&
                  pixel08x06.R == 244 && pixel08x06.G == 213 && pixel08x06.B == 204))
             {
-                return PokerCardNumber.Ten;
+                return PokerCardRank.Ten;
             }
 
             if ((pixel05x04.R == 120 && pixel05x04.G == 120 && pixel05x04.B == 119 &&
@@ -130,7 +130,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 230 && pixel08x06.G == 150 && pixel08x06.B == 121 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252))
             {
-                return PokerCardNumber.Nine;
+                return PokerCardRank.Nine;
             }
 
             if ((pixel05x04.R == 088 && pixel05x04.G == 087 && pixel05x04.B == 087 &&
@@ -138,7 +138,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 220 && pixel08x06.G == 119 && pixel08x06.B == 087 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252))
             {
-                return PokerCardNumber.Eight;
+                return PokerCardRank.Eight;
             }
 
             if ((pixel05x04.R == 004 && pixel05x04.G == 004 && pixel05x04.B == 004 &&
@@ -146,7 +146,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 204 && pixel08x06.G == 052 && pixel08x06.B == 004 &&
                  pixel08x06.R == 242 && pixel08x06.G == 201 && pixel08x06.B == 186))
             {
-                return PokerCardNumber.Seven;
+                return PokerCardRank.Seven;
             }
 
             if ((pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
@@ -154,7 +154,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
                  pixel08x06.R == 252 && pixel08x06.G == 244 && pixel08x06.B == 236))
             {
-                return PokerCardNumber.Six;
+                return PokerCardRank.Six;
             }
 
             if ((pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
@@ -162,7 +162,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
                  pixel08x06.R == 242 && pixel08x06.G == 201 && pixel08x06.B == 186))
             {
-                return PokerCardNumber.Five;
+                return PokerCardRank.Five;
             }
 
             if ((pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
@@ -170,7 +170,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 252 && pixel05x04.G == 252 && pixel05x04.B == 252 &&
                  pixel08x06.R == 214 && pixel08x06.G == 091 && pixel08x06.B == 053))
             {
-                return PokerCardNumber.Four;
+                return PokerCardRank.Four;
             }
 
             if ((pixel05x04.R == 104 && pixel05x04.G == 104 && pixel05x04.B == 104 &&
@@ -178,7 +178,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 228 && pixel05x04.G == 134 && pixel05x04.B == 104 &&
                  pixel08x06.R == 231 && pixel08x06.G == 156 && pixel08x06.B == 132))
             {
-                return PokerCardNumber.Three;
+                return PokerCardRank.Three;
             }
 
             if ((pixel05x04.R == 153 && pixel05x04.G == 153 && pixel05x04.B == 153 &&
@@ -186,37 +186,37 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
                 (pixel05x04.R == 236 && pixel05x04.G == 170 && pixel05x04.B == 153 &&
                  pixel08x06.R == 223 && pixel08x06.G == 108 && pixel08x06.B == 069))
             {
-                return PokerCardNumber.Two;
+                return PokerCardRank.Two;
             }
 
-            return PokerCardNumber.Unknown;
+            return PokerCardRank.Unknown;
         }
 
-        public PokerCardColour ReadCardColour(int cardX, int cardY)
+        public PokerCardSuit ReadCardSuit(int cardX, int cardY)
         {
             Color pixel06x25 = WindowManager.Instance.GetPixel(cardX + 06, cardY + 25);
 
             if (pixel06x25.R == 012 && pixel06x25.G == 004 && pixel06x25.B == 012)
             {
-                return PokerCardColour.Spades;
+                return PokerCardSuit.Spades;
             }
 
             if (pixel06x25.R == 204 && pixel06x25.G == 044 && pixel06x25.B == 004)
             {
-                return PokerCardColour.Hearts;
+                return PokerCardSuit.Hearts;
             }
 
             if (pixel06x25.R == 003 && pixel06x25.G == 003 && pixel06x25.B == 003)
             {
-                return PokerCardColour.Clubs;
+                return PokerCardSuit.Clubs;
             }
 
             if (pixel06x25.R == 204 && pixel06x25.G == 052 && pixel06x25.B == 004)
             {
-                return PokerCardColour.Diamonds;
+                return PokerCardSuit.Diamonds;
             }
 
-            return PokerCardColour.Unknown;
+            return PokerCardSuit.Unknown;
         }
     }
 }

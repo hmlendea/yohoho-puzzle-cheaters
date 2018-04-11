@@ -5,16 +5,20 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
 {
     public class BilgingBoard : IEquatable<BilgingBoard>
     {
-        public const short BoardWidth = 6;
-        public const short BoardHeight = 12;
-
         readonly BilgingPiece[] pieces;
+
+        public int Width { get; }
+
+        public int Height { get; }
 
         public int WaterLevel { get; set; }
 
         public BilgingBoard()
         {
-            pieces = new BilgingPiece[BoardWidth * BoardHeight];
+            Width = 6;
+            Height = 12;
+
+            pieces = new BilgingPiece[Width * Height];
 
             for (int i = 0; i < pieces.Length; i++)
             {
@@ -26,11 +30,11 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
         {
             get
             {
-                return pieces[y * BoardWidth + x];
+                return pieces[y * Width + x];
             }
             set
             {
-                pieces[y * BoardWidth + x] = value;
+                pieces[y * Width + x] = value;
             }
         }
 
@@ -57,9 +61,9 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
             BilgingBoard board = new BilgingBoard();
             board.WaterLevel = WaterLevel;
 
-            for (int y = 0; y < BoardHeight; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < BoardWidth; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     board[x, y] = new BilgingPiece(this[x, y].Id, this[x, y].Type);
                 }
@@ -85,7 +89,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
                 return false;
             }
 
-            for (int i = 0; i < BoardWidth * BoardHeight; i++)
+            for (int i = 0; i < Width * Height; i++)
             {
                 if (this[i] != other[i])
                 {
@@ -120,7 +124,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
         {
             int hash = 613 ^ WaterLevel;
 
-            for (int i = 0; i < BoardWidth * BoardHeight; i++)
+            for (int i = 0; i < Width * Height; i++)
             {
                 hash ^= this[i].GetHashCode();
             }

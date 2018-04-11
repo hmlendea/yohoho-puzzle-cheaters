@@ -126,8 +126,8 @@ namespace YohohoPuzzleCheaters
             if (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
             {
                 cursor.ReferenceLocation = new Point2D(
-                    WindowManager.Instance.WindowLocation.X + BilgingCheat.TablePosX,
-                    WindowManager.Instance.WindowLocation.Y + BilgingCheat.TablePosY);
+                    WindowManager.Instance.WindowLocation.X + BilgingBoardReader.BoardX,
+                    WindowManager.Instance.WindowLocation.Y + BilgingBoardReader.BoardY);
 
                 ChangeScreens(typeof(BilgingScreen));
             }

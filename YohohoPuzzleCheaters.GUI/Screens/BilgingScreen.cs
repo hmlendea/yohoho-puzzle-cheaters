@@ -15,6 +15,10 @@ namespace YohohoPuzzleCheaters.GUI.Screens
     /// </summary>
     public class BilgingScreen : Screen
     {
+        public const int BoardWidth = 6;
+        public const int BoardHeight = 12;
+        public const int PieceSize = 45;
+
         readonly BilgingCheat bilgingCheat;
 
         Sprite pieceSprite;
@@ -37,7 +41,7 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             {
                 ContentFile = "ScreenManager/FillImage",
                 Tint = Colour.Red,
-                Zoom = BilgingCheat.PieceSize,
+                Zoom = PieceSize,
                 Location = new Point2D(40, 40)
             };
 
@@ -75,9 +79,9 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
         void DrawTable(SpriteBatch spriteBatch)
         {
-            for (int y = 0; y < BilgingCheat.TableRows; y++)
+            for (int y = 0; y < BoardHeight; y++)
             {
-                for (int x = 0; x < BilgingCheat.TableColumns; x++)
+                for (int x = 0; x < BoardWidth; x++)
                 {
                     BilgingPiece piece = bilgingCheat.GetPiece(x, y);
 
@@ -88,11 +92,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
                     }
 
                     pieceSprite.SourceRectangle = new Rectangle2D(
-                        piece.Id * BilgingCheat.PieceSize, 0,
-                        BilgingCheat.PieceSize, BilgingCheat.PieceSize);
+                        piece.Id * PieceSize, 0,
+                        PieceSize, PieceSize);
                     pieceSprite.Location = new Point2D(
-                        x * BilgingCheat.PieceSize,
-                        y * BilgingCheat.PieceSize);
+                        x * PieceSize,
+                        y * PieceSize);
 
                     pieceSprite.Draw(spriteBatch);
                 }
@@ -104,8 +108,8 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             BilgingMove bestMove = bilgingCheat.GetBestTarget();
 
             targetSprite.Location = new Point2D(
-                bestMove.X * BilgingCheat.PieceSize + BilgingCheat.PieceSize / 2,
-                bestMove.Y * BilgingCheat.PieceSize);
+                bestMove.X * PieceSize + PieceSize / 2,
+                bestMove.Y * PieceSize);
 
             targetSprite.Draw(spriteBatch);
         }
