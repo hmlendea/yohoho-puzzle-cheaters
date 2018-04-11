@@ -4,21 +4,23 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
 {
     public sealed class PokerCardColour : IEquatable<PokerCardColour>
     {
-        public static PokerCardColour Unknown => new PokerCardColour(-1, "u");
-        public static PokerCardColour Spades => new PokerCardColour(1, "s");
-        public static PokerCardColour Hearts => new PokerCardColour(2, "h");
-        public static PokerCardColour Clubs => new PokerCardColour(3, "c");
-        public static PokerCardColour Diamonds => new PokerCardColour(4, "d");
+        public static PokerCardColour Unknown => new PokerCardColour(-1, "Unknown", 'u');
+        public static PokerCardColour Spades => new PokerCardColour(1, "Spades", 's');
+        public static PokerCardColour Hearts => new PokerCardColour(2, "Hearts", 'h');
+        public static PokerCardColour Clubs => new PokerCardColour(3, "Clubs", 'c');
+        public static PokerCardColour Diamonds => new PokerCardColour(4, "Diamonds", 'd');
 
         public int Value { get; }
 
-        string stringRepresentation;
+        public char CharCode { get; }
 
-        PokerCardColour(int value, string stringRepresentation)
+        public string Description { get; }
+
+        PokerCardColour(int value, string name, char charCode)
         {
             Value = value;
-
-            this.stringRepresentation = stringRepresentation;
+            Description = name;
+            CharCode = charCode;
         }
 
         public bool Equals(PokerCardColour other)
@@ -66,7 +68,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
             return 123 ^ Value;
         }
 
-        public override string ToString() => stringRepresentation;
+        public override string ToString() => Description;
 
         public static bool operator ==(PokerCardColour cc1, PokerCardColour cc2) => cc1.Equals(cc2);
 

@@ -6,20 +6,14 @@
 
         public PokerCardColour Colour { get; }
 
+        public string Code => $"{Number.CharCode}{Colour.CharCode}";
+
         public PokerCard(PokerCardNumber number, PokerCardColour colour)
         {
             Number = number;
             Colour = colour;
         }
 
-        public override string ToString()
-        {
-            string str = string.Empty;
-
-            str += Number.ToString();
-            str += Colour.ToString();
-
-            return str;
-        }
+        public override string ToString() => $"{Number.Description} of {Colour.Description}";
     }
 }

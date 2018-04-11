@@ -33,6 +33,9 @@
     <Reference Include="NuciXNA.Primitives">
       <HintPath>..\packages\NuciXNA.Primitives.1.0.4\lib\net45\NuciXNA.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="HandEvaluator">
+      <HintPath>..\libs\HandEvaluator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="Poker\Entities\PokerBoard.cs" />
     <Compile Include="Poker\PokerCheat.cs" />
     <Compile Include="Poker\PokerBoardReader.cs" />
+    <Compile Include="Poker\Entities\PokerOdds.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />

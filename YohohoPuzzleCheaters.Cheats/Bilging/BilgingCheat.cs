@@ -451,51 +451,61 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                     Color pixel22x22 = WindowManager.Instance.GetPixel(pieceX + 22, pieceY + 22);
 
                     if (pixel22x22.R == 025 && pixel22x22.G == 136 && pixel22x22.B == 202 ||
-                        pixel22x22.R == 010 && pixel22x22.G == 099 && pixel22x22.B == 179)
+                        pixel22x22.R == 010 && pixel22x22.G == 099 && pixel22x22.B == 179 ||
+                        pixel22x22.R == 010 && pixel22x22.G == 099 && pixel22x22.B == 178)
                     {
                         board[x, y] = BilgingPiece.SquareDark;
                     }
                     else if (pixel22x22.R == 004 && pixel22x22.G == 220 && pixel22x22.B == 204 ||
-                             pixel22x22.R == 002 && pixel22x22.G == 133 && pixel22x22.B == 180)
+                             pixel22x22.R == 002 && pixel22x22.G == 133 && pixel22x22.B == 180 ||
+                             pixel22x22.R == 002 && pixel22x22.G == 133 && pixel22x22.B == 179) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.SquareLight;
                     }
                     else if (pixel22x22.R == 025 && pixel22x22.G == 200 && pixel22x22.B == 243 ||
-                             pixel22x22.R == 010 && pixel22x22.G == 125 && pixel22x22.B == 195)
+                             pixel22x22.R == 010 && pixel22x22.G == 125 && pixel22x22.B == 195 ||
+                             pixel22x22.R == 010 && pixel22x22.G == 125 && pixel22x22.B == 194) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.CircleDark;
                     }
                     else if (pixel22x22.R == 136 && pixel22x22.G == 226 && pixel22x22.B == 197 ||
-                             pixel22x22.R == 054 && pixel22x22.G == 135 && pixel22x22.B == 177)
+                             pixel22x22.R == 054 && pixel22x22.G == 135 && pixel22x22.B == 177 ||
+                             pixel22x22.R == 054 && pixel22x22.G == 135 && pixel22x22.B == 176) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.CircleLight;
                     }
                     else if (pixel22x22.R == 059 && pixel22x22.G == 135 && pixel22x22.B == 150 ||
-                             pixel22x22.R == 024 && pixel22x22.G == 099 && pixel22x22.B == 158)
+                             pixel22x22.R == 024 && pixel22x22.G == 099 && pixel22x22.B == 158 ||
+                             pixel22x22.R == 024 && pixel22x22.G == 099 && pixel22x22.B == 157) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.OctogonDark;
                     }
                     else if (pixel22x22.R == 087 && pixel22x22.G == 189 && pixel22x22.B == 245 ||
-                             pixel22x22.R == 035 && pixel22x22.G == 121 && pixel22x22.B == 196)
+                             pixel22x22.R == 035 && pixel22x22.G == 121 && pixel22x22.B == 196 ||
+                             pixel22x22.R == 035 && pixel22x22.G == 121 && pixel22x22.B == 195) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.OctogonLight;
                     }
                     else if (pixel22x22.R == 007 && pixel22x22.G == 122 && pixel22x22.B == 235 ||
-                             pixel22x22.R == 003 && pixel22x22.G == 094 && pixel22x22.B == 192)
+                             pixel22x22.R == 003 && pixel22x22.G == 094 && pixel22x22.B == 192 ||
+                             pixel22x22.R == 003 && pixel22x22.G == 094 && pixel22x22.B == 191) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.PentagonDark;
                     }
                     else if (pixel22x22.R == 250 && pixel22x22.G == 242 && pixel22x22.B == 068 ||
-                             pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 125)
+                             pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 125 ||
+                             pixel22x22.R == 100 && pixel22x22.G == 142 && pixel22x22.B == 124) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.Pufferfish;
                     }
                     else if (pixel22x22.R == 000 && pixel22x22.G == 255 && pixel22x22.B == 232 ||
-                             pixel22x22.R == 000 && pixel22x22.G == 147 && pixel22x22.B == 191)
+                             pixel22x22.R == 000 && pixel22x22.G == 147 && pixel22x22.B == 191 ||
+                             pixel22x22.R == 000 && pixel22x22.G == 147 && pixel22x22.B == 190) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.Jellyfish;
                     }
-                    else if (pixel22x22.R == 026 && pixel22x22.G == 071 && pixel22x22.B == 124)
+                    else if (pixel22x22.R == 026 && pixel22x22.G == 071 && pixel22x22.B == 124 ||
+                             pixel22x22.R == 026 && pixel22x22.G == 071 && pixel22x22.B == 123) // YPP:DS through Wine
                     {
                         board[x, y] = BilgingPiece.Crab;
                     }

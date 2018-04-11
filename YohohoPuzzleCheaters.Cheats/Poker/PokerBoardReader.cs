@@ -8,8 +8,8 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 {
     public class PokerBoardReader
     {
-        const int PlayerHandX = 125;
-        const int PlayerHandY = 512;
+        const int PocketX = 125;
+        const int PocketY = 515;
 
         const int DeckX = 155;
         const int DeckY = 250;
@@ -33,8 +33,20 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
         public List<PokerCard> ReadPlayerCards()
         {
             List<PokerCard> playerCards = new List<PokerCard>();
-            playerCards.Add(ReadCard(PlayerHandX, PlayerHandY));
-            playerCards.Add(ReadCard(PlayerHandX + CardsDistance, PlayerHandY));
+
+            for (int i = 0; i < 2; i++)
+            {
+                int cardX = PocketX + CardsDistance * i;
+
+                Color pixel00x02 = WindowManager.Instance.GetPixel(cardX, PocketY + 02);
+
+                if (pixel00x02.R != 3 || pixel00x02.G != 3 || pixel00x02.B != 3)
+                {
+                    break;
+                }
+
+                playerCards.Add(ReadCard(cardX, PocketY));
+            }
 
             return playerCards;
         }
