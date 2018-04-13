@@ -62,6 +62,13 @@
     <Compile Include="Poker\Entities\PokerOdds.cs" />
     <Compile Include="Bilging\BilgingBoardReader.cs" />
     <Compile Include="Bilging\BilgingSolver.cs" />
+    <Compile Include="Patching\PatchingBoardReader.cs" />
+    <Compile Include="Patching\Entities\PatchingPiece.cs" />
+    <Compile Include="Patching\Entities\PatchingPieceType.cs" />
+    <Compile Include="Patching\Entities\PatchingPieceDirection.cs" />
+    <Compile Include="Patching\Entities\PatchingBoard.cs" />
+    <Compile Include="Patching\PatchingCheat.cs" />
+    <Compile Include="Patching\PatchingSolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />
@@ -71,6 +78,8 @@
     <Folder Include="Bilging\Entities\" />
     <Folder Include="Poker\" />
     <Folder Include="Poker\Entities\" />
+    <Folder Include="Patching\" />
+    <Folder Include="Patching\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YohohoPuzzleCheaters.Common\YohohoPuzzleCheaters.Common.csproj">

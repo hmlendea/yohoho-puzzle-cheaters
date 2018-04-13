@@ -4,6 +4,7 @@
     {
         UnknownScreen,
         BilgingScreen,
-        PokerScreen
+        PokerScreen,
+        PatchingScreen
     }
 }

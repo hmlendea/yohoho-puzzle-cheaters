@@ -74,21 +74,24 @@ namespace YohohoPuzzleCheaters.Common.Windows
             Color clr000x000 = GetPixel(000, 000);
             Color clr025x025 = GetPixel(025, 025);
             Color clr449x000 = GetPixel(449, 000);
-            Color clr424x025 = GetPixel(424, 025);
 
             if (clr000x000.R == 141 && clr000x000.G == 116 && clr000x000.B == 070 &&
                 clr025x025.R == 105 && clr025x025.G == 081 && clr025x025.B == 041 &&
-                clr449x000.R == 105 && clr449x000.G == 081 && clr449x000.B == 041 &&
-                clr424x025.R == 141 && clr424x025.G == 086 && clr424x025.B == 022)
+                clr449x000.R == 105 && clr449x000.G == 081 && clr449x000.B == 041)
             {
                 CurrentScreen = ScreenType.BilgingScreen;
             }
             else if (clr000x000.R == 170 && clr000x000.G == 115 && clr000x000.B == 056 &&
                      clr025x025.R == 122 && clr025x025.G == 080 && clr025x025.B == 040 &&
-                     clr449x000.R == 170 && clr449x000.G == 115 && clr449x000.B == 056 &&
-                     clr424x025.R == 130 && clr424x025.G == 085 && clr424x025.B == 043)
+                     clr449x000.R == 170 && clr449x000.G == 115 && clr449x000.B == 056)
             {
                 CurrentScreen = ScreenType.PokerScreen;
+            }
+            else if (clr000x000.R == 008 && clr000x000.G == 041 && clr000x000.B == 080 &&
+                     clr025x025.R == 008 && clr025x025.G == 041 && clr025x025.B == 080 &&
+                     clr449x000.R == 033 && clr449x000.G == 082 && clr449x000.B == 115)
+            {
+                CurrentScreen = ScreenType.PatchingScreen;
             }
             else
             {
