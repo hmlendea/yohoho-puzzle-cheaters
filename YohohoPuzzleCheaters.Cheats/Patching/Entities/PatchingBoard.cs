@@ -11,14 +11,17 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 
         public int Height { get; }
 
+        public int Size { get; }
+
         public PatchingBoard(int width, int height)
         {
             Width = width;
             Height = height;
+            Size = width * height;
 
-            pieces = new PatchingPiece[width * height];
+            pieces = new PatchingPiece[Size];
 
-            for (int i = 0; i < pieces.Length; i++)
+            for (int i = 0; i < Size; i++)
             {
                 pieces[i] = PatchingPiece.Unknown;
             }
@@ -50,16 +53,15 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 
         public bool ContainsUnknownPieces => pieces.Any(x => x.Type == PatchingPieceType.Unknown);
 
+        public int BlockerCount => pieces.Count(x => x.Type == PatchingPieceType.Blocker);
+
         public PatchingBoard CreateCopy()
         {
             PatchingBoard board = new PatchingBoard(Width, Height);
 
-            for (int y = 0; y < Height; y++)
+            for (int i = 0; i < Size; i++)
             {
-                for (int x = 0; x < Width; x++)
-                {
-                    board[x, y] = this[x, y];
-                }
+                board[i] = this[i];
             }
 
             return board;

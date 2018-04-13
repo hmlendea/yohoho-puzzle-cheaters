@@ -1,41 +1,86 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 {
     public class PatchingPiece : IEquatable<PatchingPiece>
     {
-        public static PatchingPiece Unknown => new PatchingPiece(-1, PatchingPieceType.Unknown, PatchingPieceDirection.None);
+        static readonly Dictionary<int, PatchingPiece> PatchingPieces = new Dictionary<int, PatchingPiece>
+        {
+            { -1, new PatchingPiece(-1, PatchingPieceType.Unknown, PatchingPieceDirection.None) },
+            { 0, new PatchingPiece(0, PatchingPieceType.Spool, PatchingPieceDirection.Left) },
+            { 1, new PatchingPiece(1, PatchingPieceType.Spool, PatchingPieceDirection.Up) },
+            { 2, new PatchingPiece(2, PatchingPieceType.Spool, PatchingPieceDirection.Right) },
+            { 3, new PatchingPiece(3, PatchingPieceType.Spool, PatchingPieceDirection.Down) },
+            { 4, new PatchingPiece(4, PatchingPieceType.TieOff, PatchingPieceDirection.Left) },
+            { 5, new PatchingPiece(5, PatchingPieceType.TieOff, PatchingPieceDirection.Up) },
+            { 6, new PatchingPiece(6, PatchingPieceType.TieOff, PatchingPieceDirection.Right) },
+            { 7, new PatchingPiece(7, PatchingPieceType.TieOff, PatchingPieceDirection.Down) },
+            { 8, new PatchingPiece(8, PatchingPieceType.Blocker, PatchingPieceDirection.None) },
+            { 12, new PatchingPiece(12, PatchingPieceType.Elbow, PatchingPieceDirection.Left) },
+            { 13, new PatchingPiece(13, PatchingPieceType.Elbow, PatchingPieceDirection.Up) },
+            { 14, new PatchingPiece(14, PatchingPieceType.Elbow, PatchingPieceDirection.Right) },
+            { 15, new PatchingPiece(15, PatchingPieceType.Elbow, PatchingPieceDirection.Down) },
+            { 16, new PatchingPiece(16, PatchingPieceType.Tee, PatchingPieceDirection.Left) },
+            { 17, new PatchingPiece(17, PatchingPieceType.Tee, PatchingPieceDirection.Up) },
+            { 18, new PatchingPiece(18, PatchingPieceType.Tee, PatchingPieceDirection.Right) },
+            { 19, new PatchingPiece(19, PatchingPieceType.Tee, PatchingPieceDirection.Down) },
+            { 20, new PatchingPiece(20, PatchingPieceType.Grommet, PatchingPieceDirection.Left) },
+            { 21, new PatchingPiece(21, PatchingPieceType.Grommet, PatchingPieceDirection.Up) },
+            { 22, new PatchingPiece(22, PatchingPieceType.Grommet, PatchingPieceDirection.Right) },
+            { 23, new PatchingPiece(23, PatchingPieceType.Grommet, PatchingPieceDirection.Down) },
+            { 24, new PatchingPiece(24, PatchingPieceType.Straight, PatchingPieceDirection.Left) },
+            { 25, new PatchingPiece(25, PatchingPieceType.Straight, PatchingPieceDirection.Up) },
+            { 26, new PatchingPiece(26, PatchingPieceType.Cross, PatchingPieceDirection.None) }
+        };
 
-        public static PatchingPiece SpoolLeft => new PatchingPiece(0, PatchingPieceType.Spool, PatchingPieceDirection.Left);
-        public static PatchingPiece SpoolUp => new PatchingPiece(1, PatchingPieceType.Spool, PatchingPieceDirection.Up);
-        public static PatchingPiece SpoolRight => new PatchingPiece(2, PatchingPieceType.Spool, PatchingPieceDirection.Right);
-        public static PatchingPiece SpoolDown => new PatchingPiece(3, PatchingPieceType.Spool, PatchingPieceDirection.Down);
-        public static PatchingPiece TieOffLeft => new PatchingPiece(4, PatchingPieceType.TieOff, PatchingPieceDirection.Left);
-        public static PatchingPiece TieOffUp => new PatchingPiece(5, PatchingPieceType.TieOff, PatchingPieceDirection.Up);
-        public static PatchingPiece TieOffRight => new PatchingPiece(6, PatchingPieceType.TieOff, PatchingPieceDirection.Right);
-        public static PatchingPiece TieOffDown => new PatchingPiece(7, PatchingPieceType.TieOff, PatchingPieceDirection.Down);
-        public static PatchingPiece Blocker => new PatchingPiece(8, PatchingPieceType.Blocker, PatchingPieceDirection.None);
-        public static PatchingPiece ElbowLeftUp => new PatchingPiece(12, PatchingPieceType.Elbow, PatchingPieceDirection.Up);
-        public static PatchingPiece ElbowRightUp => new PatchingPiece(13, PatchingPieceType.Elbow, PatchingPieceDirection.Up);
-        public static PatchingPiece ElbowRightDown => new PatchingPiece(14, PatchingPieceType.Elbow, PatchingPieceDirection.Down);
-        public static PatchingPiece ElbowLeftDown => new PatchingPiece(15, PatchingPieceType.Elbow, PatchingPieceDirection.Down);
-        public static PatchingPiece TeeLeft => new PatchingPiece(16, PatchingPieceType.Tee, PatchingPieceDirection.Left);
-        public static PatchingPiece TeeUp => new PatchingPiece(17, PatchingPieceType.Tee, PatchingPieceDirection.Up);
-        public static PatchingPiece TeeRight => new PatchingPiece(18, PatchingPieceType.Tee, PatchingPieceDirection.Right);
-        public static PatchingPiece TeeDown => new PatchingPiece(19, PatchingPieceType.Tee, PatchingPieceDirection.Down);
-        public static PatchingPiece GrommetLeft => new PatchingPiece(20, PatchingPieceType.Grommet, PatchingPieceDirection.Left);
-        public static PatchingPiece GrommetUp => new PatchingPiece(21, PatchingPieceType.Grommet, PatchingPieceDirection.Up);
-        public static PatchingPiece GrommetRight => new PatchingPiece(22, PatchingPieceType.Grommet, PatchingPieceDirection.Right);
-        public static PatchingPiece GrommetDown => new PatchingPiece(23, PatchingPieceType.Grommet, PatchingPieceDirection.Down);
-        public static PatchingPiece StraightHorizontal => new PatchingPiece(24, PatchingPieceType.Straight, PatchingPieceDirection.Left);
-        public static PatchingPiece StraightVertical => new PatchingPiece(25, PatchingPieceType.Straight, PatchingPieceDirection.Up);
-        public static PatchingPiece Cross => new PatchingPiece(26, PatchingPieceType.Cross, PatchingPieceDirection.None);
+        public static PatchingPiece Unknown => PatchingPieces[-1];
+        public static PatchingPiece SpoolLeft => PatchingPieces[0];
+        public static PatchingPiece SpoolUp => PatchingPieces[1];
+        public static PatchingPiece SpoolRight => PatchingPieces[2];
+        public static PatchingPiece SpoolDown => PatchingPieces[3];
+        public static PatchingPiece TieOffLeft => PatchingPieces[4];
+        public static PatchingPiece TieOffUp => PatchingPieces[5];
+        public static PatchingPiece TieOffRight => PatchingPieces[6];
+        public static PatchingPiece TieOffDown => PatchingPieces[7];
+        public static PatchingPiece Blocker => PatchingPieces[8];
+        public static PatchingPiece ElbowLeftUp => PatchingPieces[12];
+        public static PatchingPiece ElbowRightUp => PatchingPieces[13];
+        public static PatchingPiece ElbowRightDown => PatchingPieces[14];
+        public static PatchingPiece ElbowLeftDown => PatchingPieces[15];
+        public static PatchingPiece TeeLeft => PatchingPieces[16];
+        public static PatchingPiece TeeUp => PatchingPieces[17];
+        public static PatchingPiece TeeRight => PatchingPieces[18];
+        public static PatchingPiece TeeDown => PatchingPieces[19];
+        public static PatchingPiece GrommetLeft => PatchingPieces[20];
+        public static PatchingPiece GrommetUp => PatchingPieces[21];
+        public static PatchingPiece GrommetRight => PatchingPieces[22];
+        public static PatchingPiece GrommetDown => PatchingPieces[23];
+        public static PatchingPiece StraightHorizontal => PatchingPieces[24];
+        public static PatchingPiece StraightVertical => PatchingPieces[25];
+        public static PatchingPiece Cross => PatchingPieces[26];
 
         public int Value { get; }
 
         public PatchingPieceType Type { get; }
 
         public PatchingPieceDirection Direction { get; }
+
+        public bool IsMoveable
+        {
+            get
+            {
+                if (Type == PatchingPieceType.Cross ||
+                    Type == PatchingPieceType.Elbow ||
+                    Type == PatchingPieceType.Straight ||
+                    Type == PatchingPieceType.Tee)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
 
         public PatchingPiece(int value, PatchingPieceType type, PatchingPieceDirection direction)
         {
@@ -94,5 +139,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
         public static bool operator !=(PatchingPiece obj1, PatchingPiece obj2) => !obj1.Equals(obj2);
 
         public static explicit operator int(PatchingPiece obj) => obj.Value;
+
+        public static explicit operator PatchingPiece(int value) => PatchingPieces[value];
     }
 }

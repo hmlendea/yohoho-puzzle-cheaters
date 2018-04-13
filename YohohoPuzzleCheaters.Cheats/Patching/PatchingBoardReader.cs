@@ -83,18 +83,6 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
             }
 
             if ((pixel29x11.R == 147 && pixel29x11.G == 147 && pixel29x11.B == 110 &&
-                 pixel12x27.R == 069 && pixel12x27.G == 068 && pixel12x27.B == 061 &&
-                 pixel39x27.R == 225 && pixel39x27.G == 215 && pixel39x27.B == 172 &&
-                 pixel27x42.R == 220 && pixel27x42.G == 208 && pixel27x42.B == 161) ||
-                (pixel29x11.R == 249 && pixel29x11.G == 217 && pixel29x11.B == 060 &&
-                 pixel12x27.R == 254 && pixel12x27.G == 248 && pixel12x27.B == 182 &&
-                 pixel39x27.R == 243 && pixel39x27.G == 204 && pixel39x27.B == 116 &&
-                 pixel27x42.R == 243 && pixel27x42.G == 193 && pixel27x42.B == 063))
-            {
-                return PatchingPiece.ElbowLeftUp;
-            }
-
-            if ((pixel29x11.R == 147 && pixel29x11.G == 147 && pixel29x11.B == 110 &&
                  pixel12x27.R == 222 && pixel12x27.G == 213 && pixel12x27.B == 170 &&
                  pixel39x27.R == 069 && pixel39x27.G == 068 && pixel39x27.B == 061 &&
                  pixel27x42.R == 218 && pixel27x42.G == 205 && pixel27x42.B == 160) ||
@@ -103,19 +91,19 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                  pixel39x27.R == 254 && pixel39x27.G == 243 && pixel39x27.B == 169 &&
                  pixel27x42.R == 243 && pixel27x42.G == 193 && pixel27x42.B == 063))
             {
-                return PatchingPiece.ElbowRightUp;
+                return PatchingPiece.ElbowLeftUp;
             }
 
-            if ((pixel29x11.R == 225 && pixel29x11.G == 215 && pixel29x11.B == 172 &&
-                 pixel12x27.R == 217 && pixel12x27.G == 206 && pixel12x27.B == 154 &&
-                 pixel39x27.R == 049 && pixel39x27.G == 074 && pixel39x27.B == 105 &&
-                 pixel27x42.R == 049 && pixel27x42.G == 074 && pixel27x42.B == 105) ||
-                (pixel29x11.R == 243 && pixel29x11.G == 188 && pixel29x11.B == 057 &&
-                 pixel12x27.R == 243 && pixel12x27.G == 195 && pixel12x27.B == 050 &&
-                 pixel39x27.R == 254 && pixel39x27.G == 243 && pixel39x27.B == 169 &&
-                 pixel27x42.R == 254 && pixel27x42.G == 248 && pixel27x42.B == 182))
+            if ((pixel29x11.R == 147 && pixel29x11.G == 147 && pixel29x11.B == 110 &&
+                 pixel12x27.R == 069 && pixel12x27.G == 068 && pixel12x27.B == 061 &&
+                 pixel39x27.R == 225 && pixel39x27.G == 215 && pixel39x27.B == 172 &&
+                 pixel27x42.R == 220 && pixel27x42.G == 208 && pixel27x42.B == 161) ||
+                (pixel29x11.R == 249 && pixel29x11.G == 217 && pixel29x11.B == 060 &&
+                 pixel12x27.R == 254 && pixel12x27.G == 248 && pixel12x27.B == 182 &&
+                 pixel39x27.R == 243 && pixel39x27.G == 204 && pixel39x27.B == 116 &&
+                 pixel27x42.R == 243 && pixel27x42.G == 193 && pixel27x42.B == 063))
             {
-                return PatchingPiece.ElbowLeftDown;
+                return PatchingPiece.ElbowRightUp;
             }
 
             if ((pixel29x11.R == 218 && pixel29x11.G == 205 && pixel29x11.B == 160 &&
@@ -128,6 +116,18 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                  pixel27x42.R == 254 && pixel27x42.G == 248 && pixel27x42.B == 182))
             {
                 return PatchingPiece.ElbowRightDown;
+            }
+
+            if ((pixel29x11.R == 225 && pixel29x11.G == 215 && pixel29x11.B == 172 &&
+                 pixel12x27.R == 217 && pixel12x27.G == 206 && pixel12x27.B == 154 &&
+                 pixel39x27.R == 049 && pixel39x27.G == 074 && pixel39x27.B == 105 &&
+                 pixel27x42.R == 049 && pixel27x42.G == 074 && pixel27x42.B == 105) ||
+                (pixel29x11.R == 243 && pixel29x11.G == 188 && pixel29x11.B == 057 &&
+                 pixel12x27.R == 243 && pixel12x27.G == 195 && pixel12x27.B == 050 &&
+                 pixel39x27.R == 254 && pixel39x27.G == 243 && pixel39x27.B == 169 &&
+                 pixel27x42.R == 254 && pixel27x42.G == 248 && pixel27x42.B == 182))
+            {
+                return PatchingPiece.ElbowLeftDown;
             }
 
             if ((pixel29x11.R == 128 && pixel29x11.G == 114 && pixel29x11.B == 087 &&

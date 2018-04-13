@@ -69,6 +69,7 @@
     <Compile Include="Patching\Entities\PatchingBoard.cs" />
     <Compile Include="Patching\PatchingCheat.cs" />
     <Compile Include="Patching\PatchingSolver.cs" />
+    <Compile Include="Patching\Entities\PatchingLocation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreasureDrop\" />

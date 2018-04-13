@@ -2,10 +2,10 @@
 {
     public enum PatchingPieceDirection
     {
-        None,
         Left,
         Up,
         Right,
-        Down
+        Down,
+        None
     }
 }
