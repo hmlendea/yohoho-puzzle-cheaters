@@ -59,7 +59,12 @@ namespace YohohoPuzzleCheaters.Common.Windows
             CalculateCurrentScreen();
         }
 
-        public Color GetPixel(int x, int y) => windowBitmap.GetPixel(x, y);
+        public Color GetPixel(int x, int y)
+        {
+            Color colour = windowBitmap.GetPixel(x, y);
+
+            return colour;
+        }
 
         void UpdateWindowBitmap()
         {

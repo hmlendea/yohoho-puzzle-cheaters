@@ -125,8 +125,16 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
             return hash;
         }
 
-        public static bool operator ==(PatchingBoard b1, PatchingBoard b2) => b1.Equals(b2);
+        public static bool operator ==(PatchingBoard me, PatchingBoard other)
+        {
+            if (ReferenceEquals(null, me) && ReferenceEquals(null, other))
+            {
+                return true;
+            }
 
-        public static bool operator !=(PatchingBoard b1, PatchingBoard b2) => !b1.Equals(b2);
+            return me.Equals(other);
+        }
+
+        public static bool operator !=(PatchingBoard me, PatchingBoard other) => !(me == other);
     }
 }

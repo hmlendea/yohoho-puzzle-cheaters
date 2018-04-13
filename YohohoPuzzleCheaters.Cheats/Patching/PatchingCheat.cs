@@ -21,11 +21,13 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
             board = new PatchingBoard(0, 0);
         }
 
+        public PatchingBoard Solution => solution;
+
         public void Start()
         {
             new Thread(() =>
             {
-                while (WindowManager.Instance.CurrentScreen == ScreenType.BilgingScreen)
+                while (WindowManager.Instance.CurrentScreen == ScreenType.PatchingScreen)
                 {
                     PatchingBoard newBoard = boardReader.ReadBoard();
 
