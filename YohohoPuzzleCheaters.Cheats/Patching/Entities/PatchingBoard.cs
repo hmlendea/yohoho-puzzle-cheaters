@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
@@ -67,6 +68,23 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
             return board;
         }
 
+        public Dictionary<PatchingPieceType, int> GetPieceTypeCounts()
+        {
+            Dictionary<PatchingPieceType, int> pieceTypes = new Dictionary<PatchingPieceType, int>();
+
+            foreach (PatchingPiece piece in pieces)
+            {
+                if (!pieceTypes.ContainsKey(piece.Type))
+                {
+                    pieceTypes.Add(piece.Type, 0);
+                }
+
+                pieceTypes[piece.Type] += 1;
+            }
+
+            return pieceTypes;
+        }
+
         public bool Equals(PatchingBoard other)
         {
             if (ReferenceEquals(null, other))
@@ -84,9 +102,50 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
                 return false;
             }
 
-            for (int i = 0; i < Width * Height; i++)
+            for (int i = 0; i < Size; i++)
             {
-                if (this[i] != other[i])
+                if ((pieces[i].Type == PatchingPieceType.Spool) != (other[i].Type == PatchingPieceType.Spool))
+                {
+                    return false;
+                }
+
+                if ((pieces[i].Type == PatchingPieceType.TieOff) != (other[i].Type == PatchingPieceType.TieOff))
+                {
+                    return false;
+                }
+
+                if ((pieces[i].Type == PatchingPieceType.Grommet) != (other[i].Type == PatchingPieceType.Grommet))
+                {
+                    return false;
+                }
+
+                if ((pieces[i].Type == PatchingPieceType.Blocker) != (other[i].Type == PatchingPieceType.Blocker))
+                {
+                    return false;
+                }
+            }
+
+            Dictionary<PatchingPieceType, int> myTypes = GetPieceTypeCounts();
+            Dictionary<PatchingPieceType, int> othersTypes = other.GetPieceTypeCounts();
+
+            if (myTypes.Count != othersTypes.Count)
+            {
+                return false;
+            }
+
+            if (!myTypes.Keys.All(othersTypes.ContainsKey))
+            {
+                return false;
+            }
+
+            foreach (PatchingPieceType key in myTypes.Keys)
+            {
+                if (!othersTypes.ContainsKey(key))
+                {
+                    return false;
+                }
+
+                if (!myTypes[key].Equals(othersTypes[key]))
                 {
                     return false;
                 }
@@ -129,9 +188,9 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 
         public static bool operator ==(PatchingBoard me, PatchingBoard other)
         {
-            if (ReferenceEquals(null, me) && ReferenceEquals(null, other))
+            if (ReferenceEquals(other, null))
             {
-                return true;
+                return ReferenceEquals(me, null);
             }
 
             return me.Equals(other);

@@ -31,9 +31,11 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                 {
                     PatchingBoard newBoard = boardReader.ReadBoard();
 
-                    if (board != newBoard)
+                    if (newBoard != board && !newBoard.ContainsUnknownPieces)
                     {
                         board = newBoard;
+
+                        System.Console.WriteLine(System.DateTime.Now + " Calc");
                         solution = solver.CalculateSolution(board);
                     }
                 }
