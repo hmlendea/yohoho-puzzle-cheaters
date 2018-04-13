@@ -25,42 +25,55 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
         {
             if (board.ContainsUnknownPieces)
             {
+                Console.WriteLine("Contains unknown");
                 return null;
             }
 
             PatchingBoard solution = null;
-            this.gameBoard = board.CreateCopy();
-            InitialiseData();
+            InitialiseData(board);
 
-            int generations = 0;
+            int generation = 0;
+            int generations = 100000;
+            int failures = 0;
+            int successes = 0;
             int maxScore = -1;
 
-            while (generations < 10)
+            while (generation < generations)
             {
                 PatchingBoard candidate = RandomPermutation();
+                generation += 1;
+                Console.WriteLine($"Generating #{generation} (failures={failures}; successes={successes}; maxScore={maxScore})");
 
                 int score = IsValid();
 
                 if (score == 0)
                 {
+                    failures += 1;
                     continue;
                 }
+
+                successes += 1;
 
                 if (score > maxScore)
                 {
                     maxScore = score;
                     solution = candidate.CreateCopy();
                 }
-
-                generations += 1;
             }
 
+            Console.WriteLine("Return solution");
             return solution;
         }
 
-        void InitialiseData()
+        void InitialiseData(PatchingBoard board)
         {
+            gameBoard = board.CreateCopy();
+
+            immovablesCount = 0;
+            spoolIndex = 0;
+
             tieOffIndexes = new List<int>();
+            seenPositions = new bool[gameBoard.Size];
 
             for (int i = 0; i < gameBoard.Size; i++)
             {
@@ -79,8 +92,6 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                     tieOffIndexes.Add(i);
                 }
             }
-
-            seenPositions = new bool[gameBoard.Size];
         }
 
         PatchingBoard RandomPermutation()
@@ -185,9 +196,9 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                     continue;
                 }
 
-                switch (location.Direction)
+                switch ((PatchingPieceDirection)location.Direction)
                 {
-                    case (int)PatchingPieceDirection.Left:
+                    case PatchingPieceDirection.Left:
                         if (location.Position % gameBoard.Width == 0)
                         {
                             return false;
@@ -195,7 +206,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                         location.Position -= 1;
                         break;
 
-                    case (int)PatchingPieceDirection.Up:
+                    case PatchingPieceDirection.Up:
                         if (location.Position < gameBoard.Width)
                         {
                             return false;
@@ -203,7 +214,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                         location.Position -= gameBoard.Width;
                         break;
 
-                    case (int)PatchingPieceDirection.Right:
+                    case PatchingPieceDirection.Right:
                         if (location.Position % gameBoard.Width == gameBoard.Width - 1)
                         {
                             return false;
@@ -211,7 +222,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                         location.Position += 1;
                         break;
 
-                    case (int)PatchingPieceDirection.Down:
+                    case PatchingPieceDirection.Down:
                         if (location.Position >= gameBoard.Width * (gameBoard.Height - 1))
                         {
                             return false;
@@ -229,15 +240,14 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
 
         bool IsAccepting(List<PatchingLocation> locations)
         {
+            bool allAccepting = true;
+
             foreach (PatchingLocation location in locations)
             {
-                if (!IsAccepting(location))
-                {
-                    return false;
-                }
+                allAccepting &= IsAccepting(location);
             }
 
-            return true;
+            return allAccepting;
         }
 
         bool IsAccepting(PatchingLocation location)
@@ -312,7 +322,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
 
                 if (piece.Type == PatchingPieceType.Elbow)
                 {
-                    location.Direction = turnToDirection[(int)piece.Direction, previousDirection];
+                    location.Direction = elbowToDirection[(int)piece.Direction, previousDirection];
                 }
                 else if (piece.Type == PatchingPieceType.Tee)
                 {
@@ -365,11 +375,6 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                 }
             }
 
-            if (tieOffIndexes.Count > foundTieOffs.Count)
-            {
-                return false;
-            }
-
             return tieOffIndexes.Count == foundTieOffs.Count &&
                    tieOffIndexes.All(foundTieOffs.Contains);
         }
@@ -398,7 +403,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
         };
 
         // given the "turn" piece you're looking at AND current direction it returns the direction you will end up at
-        int[,] turnToDirection =
+        int[,] elbowToDirection =
         {
             { (int)PatchingPieceDirection.Up, 0, 0, (int)PatchingPieceDirection.Right },
             { 0, 0, (int)PatchingPieceDirection.Up, (int)PatchingPieceDirection.Left },

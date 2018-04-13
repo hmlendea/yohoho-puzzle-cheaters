@@ -7,7 +7,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
     {
         static readonly Dictionary<int, PatchingPiece> PatchingPieces = new Dictionary<int, PatchingPiece>
         {
-            { -1, new PatchingPiece(-1, PatchingPieceType.Unknown, PatchingPieceDirection.None) },
+            { -1, new PatchingPiece(-1, PatchingPieceType.Unknown, PatchingPieceDirection.Left) },
             { 0, new PatchingPiece(0, PatchingPieceType.Spool, PatchingPieceDirection.Left) },
             { 1, new PatchingPiece(1, PatchingPieceType.Spool, PatchingPieceDirection.Up) },
             { 2, new PatchingPiece(2, PatchingPieceType.Spool, PatchingPieceDirection.Right) },
@@ -16,7 +16,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
             { 5, new PatchingPiece(5, PatchingPieceType.TieOff, PatchingPieceDirection.Up) },
             { 6, new PatchingPiece(6, PatchingPieceType.TieOff, PatchingPieceDirection.Right) },
             { 7, new PatchingPiece(7, PatchingPieceType.TieOff, PatchingPieceDirection.Down) },
-            { 8, new PatchingPiece(8, PatchingPieceType.Blocker, PatchingPieceDirection.None) },
+            { 8, new PatchingPiece(8, PatchingPieceType.Blocker, PatchingPieceDirection.Left) },
             { 12, new PatchingPiece(12, PatchingPieceType.Elbow, PatchingPieceDirection.Left) },
             { 13, new PatchingPiece(13, PatchingPieceType.Elbow, PatchingPieceDirection.Up) },
             { 14, new PatchingPiece(14, PatchingPieceType.Elbow, PatchingPieceDirection.Right) },
@@ -31,7 +31,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
             { 23, new PatchingPiece(23, PatchingPieceType.Grommet, PatchingPieceDirection.Down) },
             { 24, new PatchingPiece(24, PatchingPieceType.Straight, PatchingPieceDirection.Left) },
             { 25, new PatchingPiece(25, PatchingPieceType.Straight, PatchingPieceDirection.Up) },
-            { 26, new PatchingPiece(26, PatchingPieceType.Cross, PatchingPieceDirection.None) }
+            { 28, new PatchingPiece(28, PatchingPieceType.Cross, PatchingPieceDirection.Left) }
         };
 
         public static PatchingPiece Unknown => PatchingPieces[-1];
@@ -58,7 +58,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
         public static PatchingPiece GrommetDown => PatchingPieces[23];
         public static PatchingPiece StraightHorizontal => PatchingPieces[24];
         public static PatchingPiece StraightVertical => PatchingPieces[25];
-        public static PatchingPiece Cross => PatchingPieces[26];
+        public static PatchingPiece Cross => PatchingPieces[28];
 
         public int Value { get; }
 
@@ -70,10 +70,11 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
         {
             get
             {
-                if (Type == PatchingPieceType.Cross ||
-                    Type == PatchingPieceType.Elbow ||
+                if (Type == PatchingPieceType.Elbow ||
+                    Type == PatchingPieceType.Tee ||
+                    Type == PatchingPieceType.Grommet ||
                     Type == PatchingPieceType.Straight ||
-                    Type == PatchingPieceType.Tee)
+                    Type == PatchingPieceType.Cross)
                 {
                     return true;
                 }

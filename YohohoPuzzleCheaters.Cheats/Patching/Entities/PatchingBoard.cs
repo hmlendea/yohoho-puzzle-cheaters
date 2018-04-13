@@ -104,22 +104,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 
             for (int i = 0; i < Size; i++)
             {
-                if ((pieces[i].Type == PatchingPieceType.Spool) != (other[i].Type == PatchingPieceType.Spool))
-                {
-                    return false;
-                }
-
-                if ((pieces[i].Type == PatchingPieceType.TieOff) != (other[i].Type == PatchingPieceType.TieOff))
-                {
-                    return false;
-                }
-
-                if ((pieces[i].Type == PatchingPieceType.Grommet) != (other[i].Type == PatchingPieceType.Grommet))
-                {
-                    return false;
-                }
-
-                if ((pieces[i].Type == PatchingPieceType.Blocker) != (other[i].Type == PatchingPieceType.Blocker))
+                if ((!pieces[i].IsMoveable || !other[i].IsMoveable) && pieces[i].Type != other[i].Type)
                 {
                     return false;
                 }
@@ -128,12 +113,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
             Dictionary<PatchingPieceType, int> myTypes = GetPieceTypeCounts();
             Dictionary<PatchingPieceType, int> othersTypes = other.GetPieceTypeCounts();
 
-            if (myTypes.Count != othersTypes.Count)
-            {
-                return false;
-            }
-
-            if (!myTypes.Keys.All(othersTypes.ContainsKey))
+            if (myTypes.Count != othersTypes.Count || !myTypes.Keys.All(othersTypes.ContainsKey))
             {
                 return false;
             }

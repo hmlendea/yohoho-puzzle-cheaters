@@ -21,6 +21,8 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
             board = new PatchingBoard(0, 0);
         }
 
+        public PatchingBoard Board => board;
+
         public PatchingBoard Solution => solution;
 
         public void Start()
@@ -33,9 +35,8 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
 
                     if (newBoard != board && !newBoard.ContainsUnknownPieces)
                     {
+                        System.Console.WriteLine("Board changed");
                         board = newBoard;
-
-                        System.Console.WriteLine(System.DateTime.Now + " Calc");
                         solution = solver.CalculateSolution(board);
                     }
                 }

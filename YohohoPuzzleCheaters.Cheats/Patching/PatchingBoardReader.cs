@@ -130,13 +130,13 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                 return PatchingPiece.ElbowLeftDown;
             }
 
-            if ((pixel29x11.R == 128 && pixel29x11.G == 114 && pixel29x11.B == 087 &&
-                 pixel12x27.R == 058 && pixel12x27.G == 069 && pixel12x27.B == 082 &&
-                 pixel39x27.R == 188 && pixel39x27.G == 187 && pixel39x27.B == 142 &&
+            if ((pixel29x11.R == 069 && pixel29x11.G == 068 && pixel29x11.B == 061 &&
+                 pixel12x27.R == 222 && pixel12x27.G == 213 && pixel12x27.B == 170 &&
+                 pixel39x27.R == 058 && pixel39x27.G == 069 && pixel39x27.B == 082 &&
                  pixel27x42.R == 049 && pixel27x42.G == 074 && pixel27x42.B == 105) ||
                 (pixel29x11.R == 249 && pixel29x11.G == 217 && pixel29x11.B == 060 &&
-                 pixel12x27.R == 254 && pixel12x27.G == 248 && pixel12x27.B == 182 &&
-                 pixel39x27.R == 243 && pixel39x27.G == 204 && pixel39x27.B == 116 &&
+                 pixel12x27.R == 243 && pixel12x27.G == 195 && pixel12x27.B == 050 &&
+                 pixel39x27.R == 254 && pixel39x27.G == 243 && pixel39x27.B == 169 &&
                  pixel27x42.R == 254 && pixel27x42.G == 248 && pixel27x42.B == 182))
             {
                 return PatchingPiece.TeeLeft;
@@ -154,13 +154,13 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                 return PatchingPiece.TeeUp;
             }
 
-            if ((pixel29x11.R == 069 && pixel29x11.G == 068 && pixel29x11.B == 061 &&
-                 pixel12x27.R == 222 && pixel12x27.G == 213 && pixel12x27.B == 170 &&
-                 pixel39x27.R == 058 && pixel39x27.G == 069 && pixel39x27.B == 082 &&
+            if ((pixel29x11.R == 128 && pixel29x11.G == 114 && pixel29x11.B == 087 &&
+                 pixel12x27.R == 058 && pixel12x27.G == 069 && pixel12x27.B == 082 &&
+                 pixel39x27.R == 188 && pixel39x27.G == 187 && pixel39x27.B == 142 &&
                  pixel27x42.R == 049 && pixel27x42.G == 074 && pixel27x42.B == 105) ||
                 (pixel29x11.R == 249 && pixel29x11.G == 217 && pixel29x11.B == 060 &&
-                 pixel12x27.R == 243 && pixel12x27.G == 195 && pixel12x27.B == 050 &&
-                 pixel39x27.R == 254 && pixel39x27.G == 243 && pixel39x27.B == 169 &&
+                 pixel12x27.R == 254 && pixel12x27.G == 248 && pixel12x27.B == 182 &&
+                 pixel39x27.R == 243 && pixel39x27.G == 204 && pixel39x27.B == 116 &&
                  pixel27x42.R == 254 && pixel27x42.G == 248 && pixel27x42.B == 182))
             {
                 return PatchingPiece.TeeRight;
@@ -179,13 +179,13 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
             }
 
             if ((pixel29x11.R == 120 && pixel29x11.G == 114 && pixel29x11.B == 098 &&
-                 pixel12x27.R == 173 && pixel12x27.G == 082 && pixel12x27.B == 051 &&
-                 pixel39x27.R == 075 && pixel39x27.G == 070 && pixel39x27.B == 062 &&
+                 pixel12x27.R == 106 && pixel12x27.G == 100 && pixel12x27.B == 087 &&
+                 pixel39x27.R == 119 && pixel39x27.G == 038 && pixel39x27.B == 019 &&
                  pixel27x42.R == 050 && pixel27x42.G == 047 && pixel27x42.B == 044) ||
                 (pixel29x11.R == 112 && pixel29x11.G == 112 && pixel29x11.B == 109 &&
-                 pixel12x27.R == 070 && pixel12x27.G == 060 && pixel12x27.B == 035 &&
-                 pixel39x27.R == 172 && pixel39x27.G == 118 && pixel39x27.B == 017 &&
-                 pixel27x42.R == 039 && pixel27x42.G == 039 && pixel27x42.B == 037))
+                 pixel12x27.R == 067 && pixel12x27.G == 063 && pixel12x27.B == 054 &&
+                 pixel39x27.R == 118 && pixel39x27.G == 103 && pixel39x27.B == 054 &&
+                 pixel27x42.R == 049 && pixel27x42.G == 046 && pixel27x42.B == 038))
             {
                 return PatchingPiece.GrommetLeft;
             }
@@ -203,13 +203,13 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
             }
 
             if ((pixel29x11.R == 120 && pixel29x11.G == 114 && pixel29x11.B == 098 &&
-                 pixel12x27.R == 106 && pixel12x27.G == 100 && pixel12x27.B == 087 &&
-                 pixel39x27.R == 119 && pixel39x27.G == 038 && pixel39x27.B == 019 &&
+                 pixel12x27.R == 173 && pixel12x27.G == 082 && pixel12x27.B == 051 &&
+                 pixel39x27.R == 075 && pixel39x27.G == 070 && pixel39x27.B == 062 &&
                  pixel27x42.R == 050 && pixel27x42.G == 047 && pixel27x42.B == 044) ||
                 (pixel29x11.R == 112 && pixel29x11.G == 112 && pixel29x11.B == 109 &&
-                 pixel12x27.R == 067 && pixel12x27.G == 063 && pixel12x27.B == 054 &&
-                 pixel39x27.R == 118 && pixel39x27.G == 103 && pixel39x27.B == 054 &&
-                 pixel27x42.R == 049 && pixel27x42.G == 046 && pixel27x42.B == 038))
+                 pixel12x27.R == 070 && pixel12x27.G == 060 && pixel12x27.B == 035 &&
+                 pixel39x27.R == 172 && pixel39x27.G == 118 && pixel39x27.B == 017 &&
+                 pixel27x42.R == 039 && pixel27x42.G == 039 && pixel27x42.B == 037))
             {
                 return PatchingPiece.GrommetRight;
             }
@@ -226,7 +226,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                 return PatchingPiece.GrommetDown;
             }
 
-            if (pixel12x27.R == 175 && pixel12x27.G == 064 && pixel12x27.B == 029)
+            if (pixel39x27.R == 118 && pixel39x27.G == 044 && pixel39x27.B == 026)
             {
                 return PatchingPiece.TieOffLeft;
             }
@@ -236,7 +236,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
                 return PatchingPiece.TieOffUp;
             }
 
-            if (pixel39x27.R == 118 && pixel39x27.G == 044 && pixel39x27.B == 026)
+            if (pixel12x27.R == 175 && pixel12x27.G == 064 && pixel12x27.B == 029)
             {
                 return PatchingPiece.TieOffRight;
             }
