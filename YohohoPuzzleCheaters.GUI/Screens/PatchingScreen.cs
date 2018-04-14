@@ -21,6 +21,7 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         PatchingCheat cheat;
 
         Sprite pieceSprite;
+        Sprite highlightSprite;
 
         public override void LoadContent()
         {
@@ -30,8 +31,14 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             {
                 ContentFile = "Cheats/Patching/pieces"
             };
+            highlightSprite = new Sprite
+            {
+                ContentFile = "ScreenManager/FillImage",
+                Opacity = 0.33f
+            };
 
             pieceSprite.LoadContent();
+            highlightSprite.LoadContent();
 
             cheat.Start();
 
@@ -41,6 +48,7 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         public override void UnloadContent()
         {
             pieceSprite.UnloadContent();
+            highlightSprite.UnloadContent();
 
             base.UnloadContent();
         }
@@ -48,22 +56,24 @@ namespace YohohoPuzzleCheaters.GUI.Screens
         public override void Update(GameTime gameTime)
         {
             pieceSprite.Update(gameTime);
+            highlightSprite.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            DrawBoard(spriteBatch);
+            DrawSolution(spriteBatch);
 
             base.Draw(spriteBatch);
         }
 
-        void DrawBoard(SpriteBatch spriteBatch)
+        void DrawSolution(SpriteBatch spriteBatch)
         {
+            PatchingBoard board = cheat.Board;
             PatchingBoard solution = cheat.Solution;
 
-            if (solution == null)
+            if (board == null || solution == null)
             {
                 return;
             }
@@ -72,8 +82,11 @@ namespace YohohoPuzzleCheaters.GUI.Screens
 
             if (FullPieceSize != pieceSize)
             {
-                pieceSprite.Zoom = (float)pieceSize / FullPieceSize;
+                pieceSprite.Scale = new Scale2D(
+                    (float)pieceSize / FullPieceSize,
+                    (float)pieceSize / FullPieceSize);
             }
+            highlightSprite.Scale = new Scale2D(pieceSize, pieceSize);
 
             for (int y = 0; y < solution.Height; y++)
             {
@@ -81,24 +94,39 @@ namespace YohohoPuzzleCheaters.GUI.Screens
                 {
                     PatchingPiece piece = solution[x, y];
 
+                    Colour tint = Colour.White;
+
                     if (piece.Type == PatchingPieceType.Unknown)
                     {
                         continue;
                     }
 
-                    int spriteX = piece.Value % SpriteSheetColumns;
-                    int spriteY = piece.Value / SpriteSheetColumns;
+                    if (board[x, y].Type != solution[x, y].Type)
+                    {
+                        tint = Colour.Green;
+                    }
+                    else if (board[x, y].Direction != solution[x, y].Direction)
+                    {
+                        tint = Colour.CornflowerBlue;
+                    }
 
-                    pieceSprite.SourceRectangle = new Rectangle2D(
-                        spriteX * FullPieceSize, spriteY * FullPieceSize,
-                        FullPieceSize, FullPieceSize);
-                    pieceSprite.Location = new Point2D(
-                        x * pieceSize,
-                        y * pieceSize);
-
-                    pieceSprite.Draw(spriteBatch);
+                    DrawPiece(spriteBatch, piece, new Point2D(x * pieceSize, y * pieceSize), tint);
                 }
             }
+        }
+
+        void DrawPiece(SpriteBatch spriteBatch, PatchingPiece piece, Point2D location, Colour tint)
+        {
+            int spriteX = piece.Value % SpriteSheetColumns;
+            int spriteY = piece.Value / SpriteSheetColumns;
+
+            pieceSprite.Tint = tint;
+            pieceSprite.Location = location;
+            pieceSprite.SourceRectangle = new Rectangle2D(
+                spriteX * FullPieceSize, spriteY * FullPieceSize,
+                FullPieceSize, FullPieceSize);
+
+            pieceSprite.Draw(spriteBatch);
         }
     }
 }

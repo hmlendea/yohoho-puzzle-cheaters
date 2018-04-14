@@ -104,6 +104,54 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 
             for (int i = 0; i < Size; i++)
             {
+                if (pieces[i] != other[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((PatchingBoard)obj);
+        }
+
+        public bool IsSameSetup(PatchingBoard other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (Width != other.Width || Height != other.Height)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < Size; i++)
+            {
                 if ((!pieces[i].IsMoveable || !other[i].IsMoveable) && pieces[i].Type != other[i].Type)
                 {
                     return false;
@@ -132,26 +180,6 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
             }
 
             return true;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((PatchingBoard)obj);
         }
 
         public override int GetHashCode()

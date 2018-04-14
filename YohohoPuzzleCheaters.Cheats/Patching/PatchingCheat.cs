@@ -35,9 +35,12 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
 
                     if (newBoard != board && !newBoard.ContainsUnknownPieces)
                     {
-                        System.Console.WriteLine("Board changed");
+                        if (!newBoard.IsSameSetup(board))
+                        {
+                            solution = solver.CalculateSolution(newBoard);
+                        }
+
                         board = newBoard;
-                        solution = solver.CalculateSolution(board);
                     }
                 }
             }).Start();

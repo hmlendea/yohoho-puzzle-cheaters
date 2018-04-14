@@ -132,7 +132,7 @@ namespace YohohoPuzzleCheaters.Cheats.Patching.Entities
 
         public override int GetHashCode()
         {
-            return 345 ^ Value;
+            return 345 ^ Value ^ (int)Type ^ (int)Direction;
         }
 
         public static bool operator ==(PatchingPiece obj1, PatchingPiece obj2) => obj1.Equals(obj2);
