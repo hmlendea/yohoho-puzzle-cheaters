@@ -119,7 +119,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
             if ((pixel05x04.R == 004 && pixel05x04.G == 004 && pixel05x04.B == 004 &&
                  pixel08x06.R == 201 && pixel08x06.G == 201 && pixel08x06.B == 201) ||
-                (pixel05x04.R == 204 && pixel08x06.G == 052 && pixel08x06.B == 004 &&
+                (pixel05x04.R == 204 && pixel05x04.G == 052 && pixel05x04.B == 004 &&
                  pixel08x06.R == 244 && pixel08x06.G == 213 && pixel08x06.B == 204))
             {
                 return PokerCardRank.Ten;
@@ -127,7 +127,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
             if ((pixel05x04.R == 120 && pixel05x04.G == 120 && pixel05x04.B == 119 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252) ||
-                (pixel05x04.R == 230 && pixel08x06.G == 150 && pixel08x06.B == 121 &&
+                (pixel05x04.R == 230 && pixel05x04.G == 150 && pixel05x04.B == 121 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252))
             {
                 return PokerCardRank.Nine;
@@ -135,7 +135,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
             if ((pixel05x04.R == 088 && pixel05x04.G == 087 && pixel05x04.B == 087 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252) ||
-                (pixel05x04.R == 220 && pixel08x06.G == 119 && pixel08x06.B == 087 &&
+                (pixel05x04.R == 220 && pixel05x04.G == 119 && pixel05x04.B == 087 &&
                  pixel08x06.R == 252 && pixel08x06.G == 252 && pixel08x06.B == 252))
             {
                 return PokerCardRank.Eight;
@@ -143,7 +143,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
             if ((pixel05x04.R == 004 && pixel05x04.G == 004 && pixel05x04.B == 004 &&
                  pixel08x06.R == 188 && pixel08x06.G == 188 && pixel08x06.B == 188) ||
-                (pixel05x04.R == 204 && pixel08x06.G == 052 && pixel08x06.B == 004 &&
+                (pixel05x04.R == 204 && pixel05x04.G == 052 && pixel05x04.B == 004 &&
                  pixel08x06.R == 242 && pixel08x06.G == 201 && pixel08x06.B == 186))
             {
                 return PokerCardRank.Seven;
