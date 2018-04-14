@@ -53,6 +53,8 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
         public PokerOdds GetOpponentOdds() => opponentOdds;
 
+        public int GetPlayersCount() => gameBoard.PlayersCount;
+
         void ClearOdds()
         {
             playerOdds = new PokerOdds();

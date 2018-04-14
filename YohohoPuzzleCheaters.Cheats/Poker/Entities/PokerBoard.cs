@@ -10,10 +10,13 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
 
         public List<PokerCard> Deck { get; set; }
 
+        public int PlayersCount { get; set; }
+
         public PokerBoard()
         {
             Pocket = new List<PokerCard>();
             Deck = new List<PokerCard>();
+            PlayersCount = 0;
         }
 
         public bool Equals(PokerBoard other)
@@ -29,7 +32,8 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
             }
 
             if (Pocket.Count != other.Pocket.Count ||
-                Deck.Count != other.Deck.Count)
+                Deck.Count != other.Deck.Count ||
+                PlayersCount != other.PlayersCount)
             {
                 return false;
             }
@@ -71,7 +75,7 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
 
         public override int GetHashCode()
         {
-            int hash = 613;
+            int hash = 613 ^ PlayersCount;
 
             foreach (PokerCard card in Pocket)
             {

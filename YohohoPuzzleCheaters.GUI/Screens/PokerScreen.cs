@@ -68,13 +68,14 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             List<PokerCard> deck = pokerCheat.GetDeck();
             PokerOdds playerOdds = pokerCheat.GetPlayerOdds();
             PokerOdds opponentOdds = pokerCheat.GetOpponentOdds();
+            int playersCount = pokerCheat.GetPlayersCount();
 
             string strPlayerWinOdds = string.Format("{0:##0.0}%", playerOdds.WinningOdds);
             string strOpponentWinOdds = string.Format("{0:##0.0}%", opponentOdds.WinningOdds);
 
-            handText.Text = $"== Hand =={Environment.NewLine}";
-            deckText.Text = $"== Deck ({deck.Count}) =={Environment.NewLine}";
-            oddsText.Text = $"== Odds ({strPlayerWinOdds} vs {strOpponentWinOdds}) =={Environment.NewLine}";
+            handText.Text = $"> Hand{Environment.NewLine}";
+            deckText.Text = $"> Deck ({deck.Count}){Environment.NewLine}";
+            oddsText.Text = $"> Odds ({strPlayerWinOdds} vs {strOpponentWinOdds}), {playersCount} players{Environment.NewLine}";
 
             foreach (PokerCard card in hand)
             {
@@ -86,15 +87,7 @@ namespace YohohoPuzzleCheaters.GUI.Screens
                 deckText.Text += $"{card.Rank} of {card.Suit}{Environment.NewLine}";
             }
 
-            oddsText.Text += $"HighC: {OddsToString(playerOdds.HighCard)} vs {OddsToString(opponentOdds.HighCard)}{Environment.NewLine}";
-            oddsText.Text += $"1Pair:  {OddsToString(playerOdds.OnePair)} vs {OddsToString(opponentOdds.OnePair)}{Environment.NewLine}";
-            oddsText.Text += $"2Pair:  {OddsToString(playerOdds.TwoPair)} vs {OddsToString(opponentOdds.TwoPair)}{Environment.NewLine}";
-            oddsText.Text += $"3Kind: {OddsToString(playerOdds.ThreeOfKind)} vs {OddsToString(opponentOdds.ThreeOfKind)}{Environment.NewLine}";
-            oddsText.Text += $"Strai:   {OddsToString(playerOdds.Straight)} vs {OddsToString(opponentOdds.Straight)}{Environment.NewLine}";
-            oddsText.Text += $"Flush: {OddsToString(playerOdds.Flush)} vs {OddsToString(opponentOdds.Flush)}{Environment.NewLine}";
-            oddsText.Text += $"FullH: {OddsToString(playerOdds.FullHouse)} vs {OddsToString(opponentOdds.FullHouse)}{Environment.NewLine}";
-            oddsText.Text += $"4Kind: {OddsToString(playerOdds.FourOfKind)} vs {OddsToString(opponentOdds.FourOfKind)}{Environment.NewLine}";
-            oddsText.Text += $"StrFl:   {OddsToString(playerOdds.StraightFlush)} vs {OddsToString(opponentOdds.StraightFlush)}{Environment.NewLine}";
+            oddsText.Text += GetOddsString(playerOdds, opponentOdds);
         }
 
         protected override void SetChildrenProperties()
@@ -124,6 +117,58 @@ namespace YohohoPuzzleCheaters.GUI.Screens
             }
 
             return "0%";
+        }
+
+        string GetOddsString(PokerOdds playerOdds, PokerOdds opponentOdds)
+        {
+            string oddsStr = string.Empty;
+
+            if (playerOdds.HighCard > 0.0 && opponentOdds.HighCard > 0.0)
+            {
+                oddsStr += $"HighC: {OddsToString(playerOdds.HighCard)} vs {OddsToString(opponentOdds.HighCard)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.OnePair > 0.0 && opponentOdds.OnePair > 0.0)
+            {
+                oddsStr += $"1Pair:  {OddsToString(playerOdds.OnePair)} vs {OddsToString(opponentOdds.OnePair)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.TwoPair > 0.0 && opponentOdds.TwoPair > 0.0)
+            {
+                oddsStr += $"2Pair:  {OddsToString(playerOdds.TwoPair)} vs {OddsToString(opponentOdds.TwoPair)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.ThreeOfKind > 0.0 && opponentOdds.ThreeOfKind > 0.0)
+            {
+                oddsStr += $"3Kind: {OddsToString(playerOdds.ThreeOfKind)} vs {OddsToString(opponentOdds.ThreeOfKind)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.Straight > 0.0 && opponentOdds.Straight > 0.0)
+            {
+                oddsStr += $"Strai:   {OddsToString(playerOdds.Straight)} vs {OddsToString(opponentOdds.Straight)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.Flush > 0.0 && opponentOdds.Flush > 0.0)
+            {
+                oddsStr += $"Flush: {OddsToString(playerOdds.Flush)} vs {OddsToString(opponentOdds.Flush)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.FullHouse > 0.0 && opponentOdds.FullHouse > 0.0)
+            {
+                oddsStr += $"FullH: {OddsToString(playerOdds.FullHouse)} vs {OddsToString(opponentOdds.FullHouse)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.FourOfKind > 0.0 && opponentOdds.FourOfKind > 0.0)
+            {
+                oddsStr += $"4Kind: {OddsToString(playerOdds.FourOfKind)} vs {OddsToString(opponentOdds.FourOfKind)}{Environment.NewLine}";
+            }
+
+            if (playerOdds.StraightFlush > 0.0 && opponentOdds.StraightFlush > 0.0)
+            {
+                oddsStr += $"StrFl:   {OddsToString(playerOdds.StraightFlush)} vs {OddsToString(opponentOdds.StraightFlush)}{Environment.NewLine}";
+            }
+
+            return oddsStr;
         }
     }
 }

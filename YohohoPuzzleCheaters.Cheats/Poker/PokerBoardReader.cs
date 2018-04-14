@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 using YohohoPuzzleCheaters.Cheats.Poker.Entities;
 using YohohoPuzzleCheaters.Common.Windows;
+using YohohoPuzzleCheaters.Infrastructure.Extensions;
 
 namespace YohohoPuzzleCheaters.Cheats.Poker
 {
@@ -15,6 +17,8 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
         const int DeckY = 250;
 
         const int CardsDistance = 20;
+        const int NamePixelsToCheck = 10;
+        const int NamePixelTolerance = 10;
 
         public PokerBoard ReadBoard()
         {
@@ -24,13 +28,14 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
             }
 
             PokerBoard board = new PokerBoard();
-            board.Pocket = ReadPlayerCards();
+            board.Pocket = ReadPocketCards();
             board.Deck = ReadDeckCards();
+            board.PlayersCount = ReadPlayersCount();
 
             return board;
         }
 
-        public List<PokerCard> ReadPlayerCards()
+        public List<PokerCard> ReadPocketCards()
         {
             List<PokerCard> playerCards = new List<PokerCard>();
 
@@ -70,6 +75,29 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
             }
 
             return deck;
+        }
+
+        public int ReadPlayersCount()
+        {
+            // Starting from bottom and going clockwise
+            int playersCount = 0;
+
+            foreach (Point point in nameTagLocations)
+            {
+                for (int i = 0; i < NamePixelsToCheck; i++)
+                {
+                    Color pixel = WindowManager.Instance.GetPixel(point.X + i, point.Y);
+
+                    if (activeTagColours.Any(x => pixel.EqualsWithTolerance(x, NamePixelTolerance)) ||
+                        inactiveTagColours.Any(x => pixel.EqualsWithTolerance(x, NamePixelTolerance)))
+                    {
+                        playersCount += 1;
+                        break;
+                    }
+                }
+            }
+
+            return playersCount;
         }
 
         public PokerCard ReadCard(int cardX, int cardY)
@@ -218,5 +246,35 @@ namespace YohohoPuzzleCheaters.Cheats.Poker
 
             return PokerCardSuit.Unknown;
         }
+
+        List<Point> nameTagLocations = new List<Point>
+        {
+            new Point(202, 417),
+            new Point(090, 377),
+            new Point(085, 356),
+            new Point(041, 277),
+            new Point(038, 216),
+            new Point(083, 076),
+            new Point(102, 055),
+            new Point(199, 017),
+            new Point(295, 055),
+            new Point(354, 155),
+            new Point(356, 278),
+            new Point(298, 378)
+        };
+        List<Color> activeTagColours = new List<Color>
+        {
+            Color.FromArgb(255, 255, 000), // Yellow
+            Color.FromArgb(163, 167, 002), // Yellow
+            Color.FromArgb(084, 255, 000), // Green
+            Color.FromArgb(063, 191, 000)  // Green
+        };
+        List<Color> inactiveTagColours = new List<Color>
+        {
+            Color.FromArgb(121, 121, 000),
+            Color.FromArgb(192, 196, 001),
+            Color.FromArgb(223, 223, 000),
+            Color.FromArgb(067, 069, 001)
+        };
     }
 }
