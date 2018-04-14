@@ -56,7 +56,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
                 while (nearestNonEmpty < board.Height)
                 {
                     hasShifted |= true;
-                    Swap(ref board, nearestEmpty * board.Width + j, nearestNonEmpty * board.Width + j);
+                    Swap(board, nearestEmpty * board.Width + j, nearestNonEmpty * board.Width + j);
 
                     // incrementing both nearestEmpty and nearestNonEmpty,
                     // note that nearestEmpty will always be empty by default
@@ -385,7 +385,7 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
             board[index + 1] = aux;
         }
 
-        void Swap(ref BilgingBoard board, int x, int y)
+        void Swap(BilgingBoard board, int x, int y)
         {
 
             BilgingPiece aux = board[x];

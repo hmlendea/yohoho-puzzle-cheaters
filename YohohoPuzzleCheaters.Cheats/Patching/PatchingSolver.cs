@@ -33,12 +33,12 @@ namespace YohohoPuzzleCheaters.Cheats.Patching
             InitialiseData(board);
 
             int generation = 0;
-            int generations = 100000;
+            int minGenerations = 35000;
             int failures = 0;
             int successes = 0;
             int maxScore = -1;
 
-            while (generation < generations)
+            while (generation < minGenerations || maxScore <= 0)
             {
                 PatchingBoard candidate = RandomPermutation();
                 generation += 1;

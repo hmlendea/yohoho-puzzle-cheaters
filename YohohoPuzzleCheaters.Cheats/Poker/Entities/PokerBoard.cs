@@ -86,8 +86,16 @@ namespace YohohoPuzzleCheaters.Cheats.Poker.Entities
             return hash;
         }
 
-        public static bool operator ==(PokerBoard b1, PokerBoard b2) => b1.Equals(b2);
+        public static bool operator ==(PokerBoard me, PokerBoard other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return ReferenceEquals(me, null);
+            }
 
-        public static bool operator !=(PokerBoard b1, PokerBoard b2) => !b1.Equals(b2);
+            return me.Equals(other);
+        }
+
+        public static bool operator !=(PokerBoard me, PokerBoard other) => !(me == other);
     }
 }

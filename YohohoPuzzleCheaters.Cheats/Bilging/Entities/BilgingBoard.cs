@@ -132,8 +132,16 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
             return hash;
         }
 
-        public static bool operator ==(BilgingBoard b1, BilgingBoard b2) => b1.Equals(b2);
+        public static bool operator ==(BilgingBoard me, BilgingBoard other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return ReferenceEquals(me, null);
+            }
 
-        public static bool operator !=(BilgingBoard b1, BilgingBoard b2) => !b1.Equals(b2);
+            return me.Equals(other);
+        }
+
+        public static bool operator !=(BilgingBoard me, BilgingBoard other) => !(me == other);
     }
 }
