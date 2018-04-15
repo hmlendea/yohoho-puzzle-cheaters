@@ -13,6 +13,13 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
 
         public int WaterLevel { get; set; }
 
+        public int EmptyPiecesCount => emptyPiecesCount;
+
+        public int CrabsCount => crabsCount;
+
+        int emptyPiecesCount;
+        int crabsCount;
+
         public BilgingBoard()
         {
             Width = 6;
@@ -46,15 +53,29 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging.Entities
             }
             set
             {
+                if (value.Type == BilgingPieceType.Empty)
+                {
+                    emptyPiecesCount += 1;
+                }
+                else if (pieces[index].Type == BilgingPieceType.Empty && value.Type != BilgingPieceType.Empty)
+                {
+                    emptyPiecesCount -= 1;
+                }
+
+                if (value.Type == BilgingPieceType.Crab)
+                {
+                    crabsCount += 1;
+                }
+                else if (pieces[index].Type == BilgingPieceType.Crab && value.Type != BilgingPieceType.Crab)
+                {
+                    crabsCount -= 1;
+                }
+
                 pieces[index] = value;
             }
         }
 
         public bool ContainsUnknownPieces => pieces.Any(x => x.Type == BilgingPieceType.Unknown);
-
-        public int EmptyPiecesCount => pieces.Count(x => x.Type == BilgingPieceType.Empty);
-
-        public int CrabsCount => pieces.Count(x => x.Type == BilgingPieceType.Crab);
 
         public BilgingBoard CreateCopy()
         {

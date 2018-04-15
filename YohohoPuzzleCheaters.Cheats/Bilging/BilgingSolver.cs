@@ -379,15 +379,11 @@ namespace YohohoPuzzleCheaters.Cheats.Bilging
         void PerformSwap(ref BilgingBoard board, int y, int x)
         {
             int index = y * board.Width + x;
-
-            BilgingPiece aux = board[index];
-            board[index] = board[index + 1];
-            board[index + 1] = aux;
+            Swap(board, index, index + 1);
         }
 
         void Swap(BilgingBoard board, int x, int y)
         {
-
             BilgingPiece aux = board[x];
             board[x] = board[y];
             board[y] = aux;
